@@ -1,0 +1,80 @@
+@import "../../../../../sas/abstracts/variables.scss";
+  
+  .profile-image {
+    padding-top: .7rem;
+  }
+  
+  .profile-image img {
+    width: 100%;
+  } 
+  
+  .profile-info {
+    display: inline-block;
+    height: 100%;
+  }
+  
+  .profile-solicitud {
+    display: inline-block;
+  }
+  
+  .profile-favorito {
+    margin-bottom: 25%;
+  }
+  
+  .profile-favorito .fa {
+    font-size: 1.5rem;
+    color: $color-blue-secunday;
+  }
+  
+  .profile-button{
+    margin-bottom: 25%;
+    width: 100%; 
+  }
+  
+  .profile-calificacion .fa {
+    font-size: 1.5rem;
+    margin-right: .3rem;
+    color: $color-primary;
+  }
+  
+  .profile-proyectos p {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  
+  .profile-divider-vertical {
+    border-left: 2px solid rgb(255,0,0,.5);
+    height: 75%;
+  }
+  
+  
+  @media (max-width: 767px) {
+    .profile-info{
+      margin-top: 15px;
+      
+    }
+    .profile-info h3{
+      text-align: center;
+    }
+  
+    .profile-info p{
+      font-size: .8rem;
+    }
+  
+    .profile-solicitud {
+      padding-bottom: 15px;
+    }
+  
+    .profile-favorito {
+      margin-bottom: 5%;
+    }
+  
+    .profile-button{
+      margin-bottom: 5%;
+    }  
+  
+    .profile-proyectos {
+      flex-direction: column;
+    }
+  }
+  

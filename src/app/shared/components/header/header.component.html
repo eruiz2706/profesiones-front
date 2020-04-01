@@ -1,0 +1,17 @@
+<header>
+  <nav class="navbar navbar-expand-md fixed-top bg-white header-navbar shadow">
+    <a class="navbar-brand header-nav-logo" href="#" [routerLink]="'/home'"><span>IWANA</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars" style="color:black; font-size:1.5rem;"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto header-navbar-ul">
+        <li class="nav-item" *ngFor="let itemMenu of navegacion">
+          <a href="#" class="nav-link" [routerLink]="itemMenu.url" >
+            {{ itemMenu.titulo }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

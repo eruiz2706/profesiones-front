@@ -1,0 +1,30 @@
+.header-nav-logo span{
+	color: $color-header-logo;
+	font-weight: 600;
+	font-size: 2.5rem;
+}
+
+.header-navbar .navbar-toggler {
+	color: $color-nav-toggle;
+	border-color: $color-nav-border-toggle;
+	padding: 10px 15px;
+}
+
+
+.header-navbar-ul li a {
+	color: $color-nav-item;
+	font-size: .9rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 9px 18px;
+}
+
+.header-navbar-ul li.active a,
+.header-navbar-ul li a:hover,
+.header-navbar-ul li a:focus {
+	background-color: $color-nav-link;
+	border-bottom: 3px solid $color-nav-active;
+	-webkit-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}

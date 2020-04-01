@@ -1,0 +1,20 @@
+<div class="container-fluid contador-home ">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="contador-home-area">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let item of items">
+                        <div class="contador-home-single">
+                            <span class="fa fa-suitcase"></span>
+                            <div class="contador-home-content">
+                                <div class="contador-home-value" [attr.data-count]="item.valor">0</div>
+                                <h5 class="contador-home-name">{{ item.titulo }}</h5>
+                            </div>  
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

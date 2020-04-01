@@ -1,0 +1,16 @@
+<div class="container">
+   
+    <a class="btn btn-secondary text-align-right mb-2 filtro-btn" data-toggle="collapse" [attr.href]="'#'+idCollapse" role="button" aria-expanded="false" [attr.aria-controls]="idCollapse" (click)="filterClick()">
+    <!--<a class="btn btn-secondary text-align-right mb-2 filtro-btn" role="button" aria-expanded="false"  (click)="filterClick()">-->
+        Filtrar <i class="fa fa-filter"></i>
+    </a>
+     <div class="row">
+        <div class="col-md-12 mb-3">
+          <div class="collapse multi-collapse filtro-div" [attr.id]="idCollapse">
+          <!--<div class="collapse multi-collapse filtro-div"   #filterRef>-->
+            <ng-content></ng-content>
+          </div>
+        </div>
+        
+      </div>
+</div>

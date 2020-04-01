@@ -1,0 +1,24 @@
+@import "../../../../../sas/abstracts/variables.scss";
+
+.como-funciona{
+    padding-top: 3rem;
+	margin-bottom: 3rem;
+	text-align: center;
+	h2 {
+		padding-bottom: 2.5rem;
+	}
+}
+.como-funciona-circle-container {
+	border-radius: 100%;
+	background: $color-primary;
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+	color: $color-white;
+	padding-top: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.como-funciona-icon {
+	font-size: 50px;
+}

@@ -1,0 +1,16 @@
+<div class="container como-funciona">
+    <div class="row">
+        <div class="col-md-12">
+          <h2>COMO FUNCIONA</h2>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let item of items;">
+        <div class="como-funciona-circle-container">
+            <i  [className]="'como-funciona-icon '+item.icono"></i>
+        </div>
+        <h5>{{ item.titulo }}</h5>
+        <p>{{ item.descripcion }}</p>
+      </div>
+    </div>
+</div>

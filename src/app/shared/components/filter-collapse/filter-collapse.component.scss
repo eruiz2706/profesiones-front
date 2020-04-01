@@ -1,0 +1,18 @@
+
+.filtro-btn {
+    display:none
+}
+
+.filtro-div {
+    display:block
+}
+
+@media (max-width: 767px) {
+    .filtro-btn {
+        display:block
+    }
+    
+    .filtro-div {
+        display:none
+    }
+}
