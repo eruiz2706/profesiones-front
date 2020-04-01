@@ -1,27 +1,51 @@
-# Profesiones
+# Versiones
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
+- Angular CLI  9.0.3
 
-## Development server
+- Node: 10.16.3
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- npm 6.13.4
 
-## Code scaffolding
+- Composer version 1.7.3
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Estandar de Codificacion
 
-## Build
+- Camel case para variables y funciones
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- dash-case-for-files-and-folders
 
-## Running unit tests
+- TitleCaseForClassesAndInterfaces
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Documentar codigo
 
-## Running end-to-end tests
+```bash
+@desc genera una cadena aleatoria alfanumerica dependiendo la cantidad de caracteres ingresados
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+@param number length - cantidad de caracteres a generar
 
-## Further help
+@copyright 2020
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+@author Eduardo ruiz eruiz2706@gmail.com
+
+@return string - cadena aleatoria
+```
+
+# Documentar Commit
+
+```bash
+type: subject 
+
+body 
+
+footer
+````
+
+```bash
+feat : Summarize changes in around 50 characters or less
+
+More detailed explanatory text, if necessary. Wrap it to about 72 
+characters or so. In some contexts, the first line is treated as the 
+subject of the commit and the rest of the text as the body.
+
+Issues : #123
+```
