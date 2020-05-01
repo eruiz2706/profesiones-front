@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,7 +10,8 @@ import { environment } from 'src/environments/environment';
 export class MenuService {
 
   private navegacion: any[];
-  private navegacion$ = new Subject<any>();
+  //private navegacion$ = new Subject<any>();
+  private navegacion$ = new BehaviorSubject<any>([]);
   private API_URL: string;
 
   constructor(
@@ -74,11 +75,6 @@ export class MenuService {
 
   getMenu$(): Observable<any[]> {
     return this.navegacion$.asObservable();
-  }
-
-  public prueba(): Observable<any> {
-    const url = `${this.API_URL}menu`;
-    return this.http.get(url);
   }
 
 }

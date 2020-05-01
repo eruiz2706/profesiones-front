@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/core/services/services.index';
+import { AuthService, MenuService } from 'src/app/core/services/services.index';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -15,13 +15,16 @@ export class RegistroComponent implements OnInit, OnDestroy {
 
   forma: FormGroup;
   subscriptionServicesAuth: Subscription;
+  subscriptionMenuServices: Subscription;
 
   constructor(
     private toastr: ToastrService,
     private authServices: AuthService,
     private router: Router,
+    private menuServices: MenuService
   ) {
     this.subscriptionServicesAuth = null;
+    this.subscriptionMenuServices = null;
 
     this.forma = new FormGroup({
       nombre: new FormControl( null, [Validators.required] ),
@@ -71,12 +74,12 @@ export class RegistroComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let usuario = {
-      'nombre': this.forma.value.nombre,
-      "email": this.forma.value.email,
-      "password": this.forma.value.password,
-      "profesional": this.forma.value.profesional,
-      "condiciones": this.forma.value.condiciones
+    const usuario = {
+      nombre: this.forma.value.nombre,
+      email: this.forma.value.email,
+      password: this.forma.value.password,
+      profesional: this.forma.value.profesional,
+      terminos: this.forma.value.condiciones
     };
 
     console.log(usuario);
@@ -89,7 +92,9 @@ export class RegistroComponent implements OnInit, OnDestroy {
         showConfirmButton: false,
         timer: 2500
       });
-      this.router.navigate( ['/login'] );
+      this.authServices.setSession(response.data.token, response.data.email, false);
+      this.menuServices.actualizarMenu$();
+      this.router.navigate( ['/dash'] );
     }, error => {
       this.toastr.error('', error.error.message, {
         timeOut: 2000

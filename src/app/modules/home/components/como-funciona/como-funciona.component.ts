@@ -1,18 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HomeService } from 'src/app/core/services/services.index';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-como-funciona',
   templateUrl: './como-funciona.component.html',
   styleUrls: ['./como-funciona.component.scss']
 })
-export class ComoFuncionaComponent implements OnInit {
+export class ComoFuncionaComponent implements OnInit, OnDestroy {
 
-  @Input() items: any[];
+  public data: any;
+  public subscriptionHomeServices: Subscription;
 
-  constructor() {
+  constructor(
+    private homeServices: HomeService
+  ) {
+    this.data = [];
+    this.subscriptionHomeServices = null;
   }
 
   ngOnInit(): void {
+    this.subscriptionHomeServices = this.homeServices.getComoFunciona$().
+    subscribe( (response) => {
+      this.data = response;
+    });
   }
+
+  ngOnDestroy(): void {
+    if ( this.subscriptionHomeServices != null ) {
+      this.subscriptionHomeServices.unsubscribe();
+    }
+ }
 
 }

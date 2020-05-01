@@ -17,12 +17,12 @@ export class AuthService {
   }
 
   public crearUsuario(usuario: any ): Observable<any> {
-    const url = `${this.API_URL}registro`;
+    const url = `${this.API_URL}/registro`;
     return this.http.post(url, usuario);
   }
 
   public autenticar(login: any): Observable<any> {
-    const url = `${this.API_URL}login`;
+    const url = `${this.API_URL}/login`;
     return this.http.post(url, login);
   }
 

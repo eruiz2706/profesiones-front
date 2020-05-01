@@ -32,23 +32,22 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('login datos');
   }
 
   ingresar(forma: NgForm): void {
 
     let login = {
-      "email": forma.value.email,
-      "password": forma.value.password,
+      email: forma.value.email,
+      password: forma.value.password,
     };
-
+    console.log(login);
     this.subscriptionAuthServices = this.authServices.autenticar(login)
     .subscribe( (response: any) => {
       console.log( response );
       this.toastr.success('', response.message, {
         timeOut: 2000
       });
-      this.authServices.setSession(response.token, forma.value.email, forma.value.recuerdame);
+      this.authServices.setSession(response.data.token, forma.value.email, forma.value.recuerdame);
       this.menuServices.actualizarMenu$();
       this.router.navigate( ['/dash'] );
     }, error => {

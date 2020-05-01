@@ -7,7 +7,8 @@ import {
   FuncionesService,
   AuthService,
   MenuService,
-  AuthInterceptorService
+  AuthInterceptorService,
+  HomeService
 } from './services/services.index';
 
 import {
@@ -30,6 +31,7 @@ import {
     FuncionesService,
     AuthService,
     MenuService,
+    HomeService,
     LoginGuard
   ]
 })

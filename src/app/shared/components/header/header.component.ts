@@ -17,11 +17,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     subscribe((navegacion: any) => {
       this.navegacion = navegacion;
     });
-
-    this.menuService.prueba()
-    .subscribe( (response: any) => {
-      console.log( response );
-    });
   }
 
   ngOnInit(): void {
