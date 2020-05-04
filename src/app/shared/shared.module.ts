@@ -13,6 +13,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { FilterCollapseComponent } from './components/filter-collapse/filter-collapse.component';
 import { ContentWrapperComponent } from './components/content-wrapper/content-wrapper.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { ContentStateImgComponent } from './components/content-state-img/content-state-img.component';
 
 
 @NgModule({
@@ -26,14 +27,14 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     PageHeaderComponent,
     FilterCollapseComponent,
     ContentWrapperComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    ContentStateImgComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedRoutingModule,
-    
+    SharedRoutingModule
   ],
   exports: [
     LoaderComponent,
@@ -41,6 +42,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     FilterCollapseComponent,
     ContentWrapperComponent,
     BreadcrumbComponent,
+    ContentStateImgComponent
   ]
 })
 export class SharedModule { }

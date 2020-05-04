@@ -8,7 +8,8 @@ import {
   AuthService,
   MenuService,
   AuthInterceptorService,
-  HomeService
+  HomeService,
+  CategoriasService
 } from './services/services.index';
 
 import {
@@ -32,6 +33,7 @@ import {
     AuthService,
     MenuService,
     HomeService,
+    CategoriasService,
     LoginGuard
   ]
 })

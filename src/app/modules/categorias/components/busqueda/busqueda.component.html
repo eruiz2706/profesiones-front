@@ -1,0 +1,23 @@
+<app-filter-collapse>
+    
+        <div class="form align-items-center ">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="busqueda.nombre">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch2" [(ngModel)]="busqueda.estado">
+                    <label class="custom-control-label" for="customSwitch2">Estado</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-4">
+            <button type="button" class="btn btn-outline-secondary btn-block" (click)="buscar()">
+                Buscar
+            </button>
+        </div>
+    
+</app-filter-collapse>

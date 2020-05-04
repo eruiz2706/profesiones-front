@@ -33,6 +33,10 @@ const routes: Routes = [
       {
         path : '',
         loadChildren: () => import('./modules/dash/dash.module').then(m => m.DashModule)
+      },
+      {
+        path : '',
+        loadChildren: () => import('./modules/categorias/categorias.module').then(m => m.CategoriasModule)
       }
     ]
   },
