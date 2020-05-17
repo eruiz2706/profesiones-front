@@ -1,0 +1,51 @@
+<form ngNativeValidate [formGroup]="forma" (ngSubmit)="actualizar()" >
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Actualizar categoria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true" style="font-size: 2rem;">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <small>Los campos marcados en <span class="icon-asterisco"></span> son requeridos</small>
+
+            <div class="form-group row pt-2">
+                <label class="col-sm-3">Id</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name='id'  formControlName='id' disabled>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="icon-asterisco col-sm-3">Nombre</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Nombre" name='nombre' formControlName='nombre'>
+                    <small class="form-text text-danger" *ngIf="forma.get('nombre').invalid  && marcadorSubmit">{{forma.get('nombre').errors | formError}}</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3">Icono <i [class]="forma.get('icono').value"></i></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Icono" name='icono' formControlName='icono'>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3">Estado</label>
+                <div class="col-sm-9">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="switchedit" formControlName='estado'>
+                        <label class="custom-control-label" for="switchedit"></label>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger btn-sm float-right" [disabled]="loading">
+            Actualizar categoria
+            <i class="fa fa-spinner fa-spin fa-loader" *ngIf="loading"></i>
+            </button>
+    </div>
+</div>
+</form>

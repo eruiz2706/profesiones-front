@@ -6,24 +6,12 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-6 col-md-4">
-            <div class="categorias-circle-container">
-                <i class="fa fa-shopping-cart categorias-icon"></i>
+            <div class="col-6 col-md-4" *ngFor="let item of dataCategorias">
+                <div class="categorias-circle-container">
+                    <i [className]="item.icono != '' ? item.icono+' categorias-icon' : 'fa fa-shopping-cart categorias-icon'" ></i>
+                </div>
+                <p>{{ item.nombre }}</p>
             </div>
-            <p>categoria</p>
-        </div>
-        <div class="col-6 col-md-4">
-            <div class="categorias-circle-container">
-                <i class="fa fa-shopping-cart categorias-icon"></i>
-            </div>
-            <p>categoria</p>
-        </div>
-        <div class="col-6 col-md-4">
-            <div class="categorias-circle-container">
-                <i class="fa fa-shopping-cart categorias-icon"></i>
-            </div>
-            <p>categoria</p>
-        </div>
         </div>
     </div>
 </div>

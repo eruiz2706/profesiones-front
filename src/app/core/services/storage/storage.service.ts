@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class StorageService {
 
   private API_URL: string;
 
@@ -17,12 +17,12 @@ export class AuthService {
   }
 
   public crearUsuario(usuario: any ): Observable<any> {
-    const url = `${this.API_URL}registro`;
+    const url = `${this.API_URL}/registro`;
     return this.http.post(url, usuario);
   }
 
   public autenticar(login: any): Observable<any> {
-    const url = `${this.API_URL}login`;
+    const url = `${this.API_URL}/login`;
     return this.http.post(url, login);
   }
 

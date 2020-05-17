@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { HomeService } from 'src/app/core/services';
+import { Subscription } from 'rxjs';
 
 declare const $: any;
 
@@ -7,13 +9,25 @@ declare const $: any;
   templateUrl: './contador.component.html',
   styleUrls: ['./contador.component.scss']
 })
-export class ContadorComponent implements OnInit {
+export class ContadorComponent implements OnInit, OnDestroy {
 
-  @Input() items: any[];
+  public data: any;
+  public subscriptionHomeServices: Subscription;
 
-  constructor() { }
+  constructor(
+    private homeServices: HomeService
+  ) {
+    this.subscriptionHomeServices = null;
+    this.data = [];
+  }
 
   ngOnInit(): void {
+
+    this.subscriptionHomeServices = this.homeServices.getContador$()
+    .subscribe( (response) => {
+      this.data = response;
+    });
+
     var a = 0;
     $(window).scroll( () => {
 
@@ -48,5 +62,11 @@ export class ContadorComponent implements OnInit {
       }
     });
   }
+
+  ngOnDestroy(): void {
+    if ( this.subscriptionHomeServices != null ) {
+      this.subscriptionHomeServices.unsubscribe();
+    }
+ }
 
 }

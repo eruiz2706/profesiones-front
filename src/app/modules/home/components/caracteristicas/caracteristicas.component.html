@@ -11,22 +11,14 @@
             <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
-                            <img class="home-caracteristicas-img" src="assets/images/features1.svg" alt="img">
-                        </div>
+                            <img class="home-caracteristicas-img" [src]="data.imagen" alt="img">
+                        </div> 
                         <div class="col-md-6">
                             <div class="home-caracteristicas-right">
                                 <ul>
-                                    <li>
-                                        <h3>Option 1</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus caracteristicass. Donec quam felis,</p>
-                                    </li>
-                                    <li>
-                                        <h3>Option 1</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus caracteristicass. Donec quam felis,</p>
-                                    </li>
-                                    <li>
-                                        <h3>Option 3</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus caracteristicass. Donec quam felis,</p>
+                                    <li *ngFor="let item of data.items">
+                                        <h3>{{ item.titulo }}</h3>
+                                        <p>{{ item.descripcion }}</p>
                                     </li>
                                 </ul>
                             </div>

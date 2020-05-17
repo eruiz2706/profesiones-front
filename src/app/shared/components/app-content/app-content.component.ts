@@ -12,6 +12,7 @@ export class AppContentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   onActivate(event) {

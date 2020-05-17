@@ -5,10 +5,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
   FuncionesService,
-  AuthService,
+  StorageService,
   MenuService,
-  AuthInterceptorService
-} from './services/services.index';
+  AuthInterceptorService,
+  HomeService,
+  CategoriasService,
+  EspecialidadesService
+} from './services';
 
 import {
   LoginGuard,
@@ -28,8 +31,11 @@ import {
         multi   : true,
     },
     FuncionesService,
-    AuthService,
+    StorageService,
     MenuService,
+    HomeService,
+    CategoriasService,
+    EspecialidadesService,
     LoginGuard
   ]
 })

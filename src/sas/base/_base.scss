@@ -1,5 +1,6 @@
 *{
 	font-family: 'Raleway', sans-serif;
+	font-size: 1rem;
 }
 
 body {
@@ -19,6 +20,18 @@ h6 {
 img {
 	border: none;
 	max-width: 100%;
+}
+
+a {
+	color: $color-blue-secunday
+}
+
+a:hover  {
+	color: $color-blue
+}
+
+.fa {
+	font-size: 1rem;
 }
 
 .overlay {
@@ -41,16 +54,36 @@ img {
 }
 
 .content-wrapper {
-	min-height: 300px;
+	//min-height: 300px;
+	max-width: 1300px;
+	min-height: 500px;
 	padding-top: 5.3rem;
+	margin: 0 auto;
 }
 
 .divider {
 	border-top: 1px solid rgb(0,0,0,.1);
 }
 
-.asterisco::after {
+.icon-asterisco::after {
 	color: $color-primary;
+	font-size: 1.5rem;
 	content: ' *'
 }
 
+//input de busqueda
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}

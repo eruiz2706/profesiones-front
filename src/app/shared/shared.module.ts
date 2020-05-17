@@ -13,7 +13,10 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { FilterCollapseComponent } from './components/filter-collapse/filter-collapse.component';
 import { ContentWrapperComponent } from './components/content-wrapper/content-wrapper.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-
+import { ContentStateImgComponent } from './components/content-state-img/content-state-img.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterDataPipe } from './pipes/filter-data.pipe';
+import { FormErrorPipe } from './pipes/form-error.pipe';
 
 @NgModule({
   declarations: [
@@ -26,14 +29,17 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     PageHeaderComponent,
     FilterCollapseComponent,
     ContentWrapperComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    ContentStateImgComponent,
+    FilterDataPipe,
+    FormErrorPipe
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     SharedRoutingModule,
-    
+    NgxPaginationModule
   ],
   exports: [
     LoaderComponent,
@@ -41,6 +47,10 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     FilterCollapseComponent,
     ContentWrapperComponent,
     BreadcrumbComponent,
+    ContentStateImgComponent,
+    NgxPaginationModule,
+    FilterDataPipe,
+    FormErrorPipe
   ]
 })
 export class SharedModule { }
