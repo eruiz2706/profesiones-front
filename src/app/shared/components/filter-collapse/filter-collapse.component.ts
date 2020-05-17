@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FuncionesService } from 'src/app/core/services/services.index';
+import { FuncionesService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-filter-collapse',

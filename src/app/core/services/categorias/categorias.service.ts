@@ -10,59 +10,24 @@ export class CategoriasService {
 
   private API_URL: string;
 
-  private loadingStore: boolean;
-  private loading$ = new BehaviorSubject<any>(null);
-
-  private dataStore: any;
-  private data$ = new BehaviorSubject<any>([]);
-
-  private eventcrear$ = new Subject<any>();
-
   constructor(
     private http: HttpClient
   ) {
     this.API_URL = environment.API_URL;
-    this.loadingStore = false;
-    this.dataStore = [];
   }
 
-  public eventCrear$() {
-    this.eventcrear$.next(true);
+  public getAll(): Observable<any> {
+    const url = `${this.API_URL}/categorias?limit=100`;
+    return this.http.get(url);
   }
 
-  public buscarData$(filtros: any= {}) {
-
-    let querys = 'limit=1000';
-    if (typeof filtros.nombre !== 'undefined') {
-      querys += `&nombre=${filtros.nombre}`;
-    }
-    if (typeof filtros.estado !== 'undefined') {
-      querys += `&estado=${filtros.estado}`;
-    }
-
-    const url = `${this.API_URL}/categorias?${querys}`;
-
-    this.loadingStore = true;
-    this.loading$.next( this.loadingStore );
-
-    this.http.get(url).subscribe( res => {
-      this.dataStore = res['data'];
-      this.data$.next( this.dataStore );
-
-      this.loadingStore = false;
-      this.loading$.next( this.loadingStore );
-    });
+  public create(data: any): Observable<any> {
+    const url = `${this.API_URL}/categorias`;
+    return this.http.post(url, data);
   }
 
-  public getLoading$(): Observable<any> {
-    return this.loading$.asObservable();
-  }
-
-  public getData$(): Observable<any> {
-    return this.data$.asObservable();
-  }
-
-  public getEventCrear$(): Observable<any> {
-    return this.eventcrear$.asObservable();
+  public update(data: any, id: string): Observable<any> {
+    const url = `${this.API_URL}/categorias/${id}`;
+    return this.http.put(url, data);
   }
 }

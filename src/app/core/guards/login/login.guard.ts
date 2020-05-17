@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from '../../services/services.index';
+import { StorageService } from '../../services';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,12 @@ import { AuthService } from '../../services/services.index';
 export class LoginGuard implements CanActivate {
 
   constructor(
-    private authService: AuthService,
+    private storageService: StorageService,
     private router: Router
   ) {}
 
   canActivate(): boolean {
-    if ( this.authService.getIdentity() ) {
+    if ( this.storageService.getIdentity() ) {
       return true;
     }
     this.router.navigate(['/login']);

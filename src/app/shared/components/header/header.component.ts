@@ -1,6 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuService } from 'src/app/core/services/services.index';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
+import * as fromStore from 'src/app/core/store';
+import * as fromMenuActions from 'src/app/core/store/actions/menu.accions';
+import { StorageService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-header',
@@ -9,23 +13,41 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  private unsubscribe$ = new Subject<void>();
+  public loaded: boolean;
   public navegacion: any;
-  subscriptionMenuServices: Subscription = null;
 
-  constructor(private menuService: MenuService) {
-    this.menuService.getMenu$().
-    subscribe((navegacion: any) => {
-      this.navegacion = navegacion;
-    });
+
+  constructor(
+    private store: Store<fromStore.AppState>,
+    private storageService: StorageService
+  ) {
+    this.loaded = false;
   }
 
   ngOnInit(): void {
-    this.menuService.actualizarMenu$();
+    this.subscriptions();
+
+    if ( !this.loaded ) {
+      if (this.storageService.isAuthenticated()) {
+        this.store.dispatch(new fromMenuActions.CargarDatosAuthEffectAction());
+      } else {
+        this.store.dispatch(new fromMenuActions.CargarDatosEffectAction());
+      }
+    }
+  }
+
+  subscriptions(): void {
+    this.store.select('menu')
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (menu) => {
+      this.navegacion = menu.data;
+      this.loaded = menu.loaded;
+    });
   }
 
   ngOnDestroy(): void {
-    if ( this.subscriptionMenuServices != null ) {
-      this.subscriptionMenuServices.unsubscribe();
-    }
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

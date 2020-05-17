@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { HomeService } from 'src/app/core/services/services.index';
+import { HomeService } from 'src/app/core/services';
 import { Subscription } from 'rxjs';
 
 declare const $: any;

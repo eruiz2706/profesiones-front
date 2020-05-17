@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService, MenuService } from 'src/app/core/services/services.index';
+import { StorageService, MenuService } from 'src/app/core/services';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import * as fromStore from 'src/app/core/store';
+import * as fromMenuActions from 'src/app/core/store/actions/menu.accions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-registro',
@@ -13,19 +15,23 @@ import Swal from 'sweetalert2';
 })
 export class RegistroComponent implements OnInit, OnDestroy {
 
-  forma: FormGroup;
+  public forma: FormGroup;
+  public marcadorSubmit: boolean;
+
+
   subscriptionServicesAuth: Subscription;
   subscriptionMenuServices: Subscription;
 
   constructor(
-    private toastr: ToastrService,
-    private authServices: AuthService,
+    private store: Store<fromStore.AppState>,
+    private storageService: StorageService,
     private router: Router,
     private menuServices: MenuService
   ) {
     this.subscriptionServicesAuth = null;
     this.subscriptionMenuServices = null;
 
+    this.marcadorSubmit = false;
     this.forma = new FormGroup({
       nombre: new FormControl( null, [Validators.required] ),
       email: new FormControl( null, [Validators.required, Validators.email] ),
@@ -52,24 +58,36 @@ export class RegistroComponent implements OnInit, OnDestroy {
       }
 
       return {
-        camposIguales: false
+        camposIguales: true
       };
     };
   }
 
   registrar(): void {
+
     if ( this.forma.errors != null ) {
-      if ( !this.forma.errors.camposIguales ) {
-        this.toastr.error('', 'Las contraseñas deben ser iguales', {
-          timeOut: 2000
+      if ( this.forma.errors.camposIguales ) {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          text: 'Las contraseñas deben ser iguales',
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true
         });
         return;
       }
     }
 
+    this.marcadorSubmit = true;
     if ( this.forma.invalid ) {
-      this.toastr.error('', 'Debe completar los campos requeridos', {
-        timeOut: 2000
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        text: 'Debe completar los campos requeridos',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true
       });
       return;
     }
@@ -83,7 +101,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
     };
 
     console.log(usuario);
-    this.subscriptionServicesAuth = this.authServices.crearUsuario(usuario)
+    this.subscriptionServicesAuth = this.storageService.crearUsuario(usuario)
     .subscribe( (response: any) => {
       Swal.fire({
         position: 'top-end',
@@ -92,12 +110,16 @@ export class RegistroComponent implements OnInit, OnDestroy {
         showConfirmButton: false,
         timer: 2500
       });
-      this.authServices.setSession(response.data.token, response.data.email, false);
-      this.menuServices.actualizarMenu$();
+      this.storageService.setSession(response.data.token, response.data.email, false);
+      this.store.dispatch(new fromMenuActions.CargarDatosAuthEffectAction());
       this.router.navigate( ['/dash'] );
     }, error => {
-      this.toastr.error('', error.error.message, {
-        timeOut: 2000
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        text: error.error.message,
+        showConfirmButton: false,
+        timer: 2500
       });
     }
     );

@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService, MenuService } from 'src/app/core/services/services.index';
-import { ToastrService } from 'ngx-toastr';
+import { StorageService } from 'src/app/core/services';
+import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import * as fromStore from 'src/app/core/store';
+import * as fromMenuActions from 'src/app/core/store/actions/menu.accions';
+import { Store } from '@ngrx/store';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,56 +17,77 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   email: string;
   recuerdame: boolean;
-  subscriptionAuthServices: Subscription = null;
-  subscriptionMenuServices: Subscription = null;
+  subscriptionstorageServices: Subscription = null;
+  forma: FormGroup;
 
   constructor(
-    private toastr: ToastrService,
-    private authServices: AuthService,
+    private store: Store<fromStore.AppState>,
+    private storageServices: StorageService,
     private router: Router,
-    private menuServices: MenuService
   ) {
-    this.authServices.removerSession();
-    this.email = authServices.getEmail();
+    this.storageServices.removerSession();
+    this.email = storageServices.getEmail();
     if ( this.email !== '' ) {
       this.recuerdame = true;
     }
-    this.menuServices.actualizarMenu$();
+    this.forma = new FormGroup({
+      email: new FormControl(null, [Validators.required] ),
+      password: new FormControl( null, [Validators.required] )
+    });
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new fromMenuActions.CargarDatosEffectAction());
   }
 
-  ingresar(forma: NgForm): void {
+  ingresar(): void {
 
-    let login = {
-      email: forma.value.email,
-      password: forma.value.password,
+    if ( this.forma.invalid ) {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        text: 'Debe llenar los campos email y contraseña',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true
+      });
+      return;
+    }
+
+    const login = {
+      email: this.forma.value.email,
+      password: this.forma.value.password,
     };
-    console.log(login);
-    this.subscriptionAuthServices = this.authServices.autenticar(login)
+
+    this.subscriptionstorageServices = this.storageServices.autenticar(login)
     .subscribe( (response: any) => {
-      console.log( response );
-      this.toastr.success('', response.message, {
-        timeOut: 2000
-      });
-      this.authServices.setSession(response.data.token, forma.value.email, forma.value.recuerdame);
-      this.menuServices.actualizarMenu$();
-      this.router.navigate( ['/dash'] );
+      this.registroExitoso(response);
     }, error => {
-      this.toastr.error('', error.error.message, {
-        timeOut: 2000
-      });
+      this.registroFallido(error);
     }
     );
   }
 
+  registroExitoso(response: any): void {
+    this.storageServices.setSession(response.data.token, this.forma.value.email, this.forma.value.recuerdame);
+    this.store.dispatch(new fromMenuActions.CargarDatosAuthEffectAction());
+    this.router.navigate( ['/dash'] );
+  }
+
+  registroFallido(error: any): void {
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      text: error.error.message,
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true
+    });
+  }
+
   ngOnDestroy(): void {
-    if ( this.subscriptionAuthServices != null ) {
-      this.subscriptionAuthServices.unsubscribe();
-    }
-    if ( this.subscriptionMenuServices != null ) {
-      this.subscriptionMenuServices.unsubscribe();
+    if ( this.subscriptionstorageServices != null ) {
+      this.subscriptionstorageServices.unsubscribe();
     }
   }
 

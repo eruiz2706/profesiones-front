@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { StoreModule } from '@ngrx/store';
-import { categoriasReducer } from 'src/app/core/state/categorias.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers, effects } from 'src/app/core/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,9 @@ import { SharedModule } from './shared/shared.module';
 
 // Servicios
 import { CoreModule } from './core/core.module';
+import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +30,12 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    StoreModule.forRoot({ count: categoriasReducer })
+    StoreModule.forRoot( reducers ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    EffectsModule.forRoot( effects )
   ],
   providers: [],
   bootstrap: [AppComponent]

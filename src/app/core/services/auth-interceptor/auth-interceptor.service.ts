@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(
-    private authServices: AuthService
+    private storageService: StorageService
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
@@ -17,7 +17,8 @@ export class AuthInterceptorService implements HttpInterceptor {
     req = req.clone({
      setHeaders: {
        'Content-Type': 'application/json',
-       'Authorization': this.authServices.getIdentity()
+       //'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',
+       'Authorization': this.storageService.getIdentity()
      }
     });
 

@@ -1,23 +1,17 @@
-<app-filter-collapse>
-    
-        <div class="form align-items-center ">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" class="form-control" name="nombre" [(ngModel)]="busqueda.nombre">
-                </div>
+<div class="card m-3"  style="height: 90%;">
+    <div class="card-body">
+        <app-filter-collapse>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" name="nombre">
             </div>
-            <div class="col-md-12">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch2" [(ngModel)]="busqueda.estado">
-                    <label class="custom-control-label" for="customSwitch2">Estado</label>
-                </div>
+            
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                <label class="custom-control-label" for="customSwitch2">Estado</label>
             </div>
-        </div>
-        <div class="col-md-12 mt-4">
-            <button type="button" class="btn btn-outline-secondary btn-block" (click)="buscar()">
-                Buscar
-            </button>
-        </div>
-    
-</app-filter-collapse>
+            
+            <button type="submit" class="btn btn-danger mt-3">Buscar</button>
+        </app-filter-collapse>
+    </div>
+  </div>
