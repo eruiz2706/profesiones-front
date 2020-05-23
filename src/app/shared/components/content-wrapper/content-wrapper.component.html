@@ -1,5 +1,49 @@
 <div class="content-wrapper">
+
+    <div class="card-body">
+        <ngx-spinner 
+        bdColor = "rgba(242,241,241,1)" 
+        size = "large" 
+        color = "#EC4243" 
+        type = "ball-scale-multiple" 
+        zIndex = 3
+        [fullScreen] = "true"
+    >
+        <p style="color: black" > Cargando... </p>
+    </ngx-spinner>
+
     <div class="content">
-        <ng-content></ng-content>
+        <!--<app-loader [visible]=loading></app-loader>-->
+        <ng-container *ngIf="!loading">
+            <!--BreadCrumb-->
+            <div class="container-fluid  mb-1" *ngIf="titulo">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="float-left" style="display:inline;">{{ titulo }}</h5>
+                        
+                        <ng-content  select="[content-wrapper-options]"></ng-content>
+                    </div>
+                </div>
+            </div>
+            <!--BreadCrumb-->
+
+            <app-content-state-img 
+                *ngIf="contentImgVisible"
+                [titulo]="contentStateTitulo" 
+                [subtitulo]="contentStateSubtitulo" 
+                [imagen]="contentStateImagen">
+                <ng-container *ngIf="contentStateRedirect !=='';else templateButton">
+                    <button type="button" class="btn btn-primary ppb-3" [routerLink]="contentStateRedirect">{{contentStateButton}}</button>
+                </ng-container>
+                <ng-template #templateButton>
+                    <button type="button" class="btn btn-primary ppb-3" (click)="onClickButtonEmpty()">{{contentStateButton}}</button>
+                </ng-template>
+            </app-content-state-img>
+ 
+            <ng-container *ngIf="!contentImgVisible">
+                <ng-content></ng-content>
+            </ng-container>
+        </ng-container>
+        
     </div>
 </div>

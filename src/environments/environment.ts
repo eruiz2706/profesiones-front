@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL : 'https://api.iwana.tech/api/v1',
+  API_URL : 'https://api.iwana.tech/api/v1'
 };
 
 /*

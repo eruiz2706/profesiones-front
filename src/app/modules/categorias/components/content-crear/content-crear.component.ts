@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Store, ActionsSubject } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ofType } from '@ngrx/effects';
-import Swal from 'sweetalert2';
-import * as fromStore from 'src/app/core/store';
-import * as fromCategoriasActions from 'src/app/core/store/actions/categorias.accions';
-declare const $: any;
+import * as fromStore from 'src/app/app-config-store';
+import { AlertsService, CategoriasService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-content-crear',
@@ -19,13 +16,12 @@ export class ContentCrearComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   public forma: FormGroup;
   public marcadorSubmit: boolean;
-  public loading: boolean;
-  public loaded: boolean;
-  public message: string;
+  public spinner: boolean = false;
 
   constructor(
     private store: Store<fromStore.AppState>,
-    private actionsSubject: ActionsSubject
+    private alertServices: AlertsService,
+    private categoriasServices: CategoriasService
   ) { }
 
   ngOnInit(): void {
@@ -34,79 +30,51 @@ export class ContentCrearComponent implements OnInit, OnDestroy {
       icono: new FormControl( null ),
       estado: new FormControl( true )
     });
-    this.subscriptions();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
-  subscriptions(): void {
-    this.actionsSubject.pipe(
-      takeUntil(this.unsubscribe$),
-      ofType(fromCategoriasActions.CREAR_REGISTRO_EXITOSO)
-    ).subscribe(data => {
-      this.mensajeCreacion();
-    });
-
-    this.actionsSubject.pipe(
-      takeUntil(this.unsubscribe$),
-      ofType(fromCategoriasActions.CREAR_REGISTRO_FALLIDO)
-    ).subscribe(data => {
-      this.mensajeFallido();
-    });
-
-    this.store.select('categorias')
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe( (categorias) => {
-      this.loading = categorias.loading_creat;
-      this.loaded = categorias.loaded_creat;
-      this.message = categorias.message;
-    });
   }
 
   crear(): void {
     this.marcadorSubmit = true;
     if ( this.forma.invalid ) {
-      Swal.fire({
-        position: 'top',
-        icon: 'info',
-        text: 'Debe completar los campos requeridos',
-        showConfirmButton: false,
-        timer: 2500,
-        timerProgressBar: true
-      });
+      this.alertServices.toastInfo('', 'Debe completar los campos requeridos');
       return;
     }
 
-    this.store.dispatch( new fromCategoriasActions.CrearRegistroEffectAction(this.forma.value) );
+    const payload = {
+      nombre: this.forma.value.nombre,
+      icono: this.forma.value.icono,
+      estado: this.forma.value.estado
+    };
+
+    this.spinner = true;
+    this.categoriasServices.create(payload)
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((response) => {
+      this.cargarDatos();
+      this.spinner = false;
+      this.alertServices.toastSuccess('', response.message);
+      this.marcadorSubmit = false;
+      this.forma.reset();
+
+    }, (error) => {
+      this.spinner = false;
+      this.alertServices.toastError('', error.error.message);
+    });
   }
 
-  mensajeCreacion(): void {
-    Swal.fire({
-      position: 'top',
-      icon: 'success',
-      text: this.message,
-      showConfirmButton: false,
-      timer: 2500,
-      timerProgressBar: true
+  cargarDatos(): void {
+    this.store.dispatch( new fromStore.accions.categorias.CargarDatosAction());
+    this.categoriasServices.getAll()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (response) => {
+      this.store.dispatch( new fromStore.accions.categorias.CargarDatosExitososAction(response));
+    }, (error) => {
+      this.store.dispatch( new fromStore.accions.categorias.CargarDatosFallidosAction(error));
     });
-    this.forma.reset();
-    this.marcadorSubmit = false;
-    this.store.dispatch( new fromCategoriasActions.CargarDatosEffectAction() );
-    $('#modalCrear').modal('hide');
   }
 
-  mensajeFallido(): void {
-    Swal.fire({
-      position: 'top',
-      icon: 'warning',
-      text: 'Lo sentimos no fue posible crear la categoria',
-      showConfirmButton: false,
-      timer: 2500,
-      timerProgressBar: true
-    });
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

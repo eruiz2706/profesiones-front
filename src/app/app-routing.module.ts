@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { AppContentComponent } from './shared/components/app-content/app-content.component';
-import { PaginaErrorComponent } from './shared/components/pagina-error/pagina-error.component';
+import { AppContentComponent } from './core/components/app-content/app-content.component';
+import { PaginaErrorComponent } from './core/components/pagina-error/pagina-error.component';
 
 const routes: Routes = [
   {
@@ -37,11 +37,7 @@ const routes: Routes = [
       {
         path : '',
         loadChildren: () => import('./modules/categorias/categorias.module').then(m => m.CategoriasModule)
-      },
-      {
-        path : '',
-        loadChildren: () => import('./modules/especialidades/especialidades.module').then(m => m.EspecialidadesModule)
-      },
+      }
     ]
   },
   {

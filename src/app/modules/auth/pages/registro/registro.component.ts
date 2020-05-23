@@ -1,12 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StorageService, MenuService } from 'src/app/core/services';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
-import * as fromStore from 'src/app/core/store';
-import * as fromMenuActions from 'src/app/core/store/actions/menu.accions';
+import * as fromStore from 'src/app/app-config-store';
 import { Store } from '@ngrx/store';
+import { AlertsService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-registro',
@@ -18,18 +14,10 @@ export class RegistroComponent implements OnInit, OnDestroy {
   public forma: FormGroup;
   public marcadorSubmit: boolean;
 
-
-  subscriptionServicesAuth: Subscription;
-  subscriptionMenuServices: Subscription;
-
   constructor(
     private store: Store<fromStore.AppState>,
-    private storageService: StorageService,
-    private router: Router,
-    private menuServices: MenuService
+    private alertServices: AlertsService
   ) {
-    this.subscriptionServicesAuth = null;
-    this.subscriptionMenuServices = null;
 
     this.marcadorSubmit = false;
     this.forma = new FormGroup({
@@ -67,68 +55,32 @@ export class RegistroComponent implements OnInit, OnDestroy {
 
     if ( this.forma.errors != null ) {
       if ( this.forma.errors.camposIguales ) {
-        Swal.fire({
-          position: 'top',
-          icon: 'info',
-          text: 'Las contraseñas deben ser iguales',
-          showConfirmButton: false,
-          timer: 2500,
-          timerProgressBar: true
-        });
+        this.alertServices.toastInfo('', 'Las contraseñas deben ser iguales');
         return;
       }
     }
 
     this.marcadorSubmit = true;
     if ( this.forma.invalid ) {
-      Swal.fire({
-        position: 'top',
-        icon: 'info',
-        text: 'Debe completar los campos requeridos',
-        showConfirmButton: false,
-        timer: 2500,
-        timerProgressBar: true
-      });
+      this.alertServices.toastInfo('', 'Debe completar los campos requeridos');
       return;
     }
 
-    const usuario = {
-      nombre: this.forma.value.nombre,
-      email: this.forma.value.email,
-      password: this.forma.value.password,
-      profesional: this.forma.value.profesional,
-      terminos: this.forma.value.condiciones
+    const payload = {
+      user: {
+        nombre: this.forma.value.nombre,
+        email: this.forma.value.email,
+        password: this.forma.value.password,
+        profesional: this.forma.value.profesional,
+        terminos: this.forma.value.condiciones
+      },
+      spinner: 'spinner'
     };
 
-    console.log(usuario);
-    this.subscriptionServicesAuth = this.storageService.crearUsuario(usuario)
-    .subscribe( (response: any) => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        text: response.message,
-        showConfirmButton: false,
-        timer: 2500
-      });
-      this.storageService.setSession(response.data.token, response.data.email, false);
-      this.store.dispatch(new fromMenuActions.CargarDatosAuthEffectAction());
-      this.router.navigate( ['/dash'] );
-    }, error => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        text: error.error.message,
-        showConfirmButton: false,
-        timer: 2500
-      });
-    }
-    );
+    this.store.dispatch( new fromStore.accions.auth.AuthRegistroAction(payload));
   }
 
   ngOnDestroy(): void {
-    if ( this.subscriptionServicesAuth != null ) {
-      this.subscriptionServicesAuth.unsubscribe();
-    }
   }
 
 }

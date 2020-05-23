@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducers, effects } from 'src/app/core/store';
+import { reducers, effects } from './app-config-store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

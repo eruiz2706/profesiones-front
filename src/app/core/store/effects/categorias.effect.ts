@@ -1,59 +1,94 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap, map, catchError, delay } from 'rxjs/operators';
+import { switchMap, map, catchError, delay, tap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { CategoriasService } from '../../services';
-import * as fromCategoriasActions from '../actions/categorias.accions';
+import { CategoriasService, AlertsService, ModalService } from 'src/app/core/services';
+import * as fromActions from '../accions/categorias.accions';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class CategoriasEffects {
 
     constructor(
         private actions$: Actions,
-        private categoriasServices: CategoriasService
+        private categoriasServices: CategoriasService,
+        private spinnerServices: NgxSpinnerService,
+        private alertServices: AlertsService
     ) {
     }
 
     @Effect()
     cargar$: Observable<Action> = this.actions$.pipe(
-        ofType(fromCategoriasActions.CARGAR_DATOS_EFFECT),
-        delay(1000),
+        ofType(fromActions.CARGAR_DATOS),
         switchMap( () => this.categoriasServices.getAll()
             .pipe(
                 map( response => {
-                        return new fromCategoriasActions.CargarDatosExitososAction(response);
+                    return new fromActions.CargarDatosExitososAction(response);
                 }),
-                catchError( error => of(new fromCategoriasActions.CargarDatosFallidosAction(error)))
+                catchError( error => {
+                    return of( new fromActions.CargarDatosFallidosAction(error) );
+                })
             )
         )
     );
 
-    @Effect()
+    /*@Effect()
     crear$: Observable<Action> = this.actions$.pipe(
-        ofType(fromCategoriasActions.CREAR_REGISTRO_EFFECT),
-        map(( action: fromCategoriasActions.CrearRegistroEffectAction ) => action.payload ),
-        switchMap( ( payload ) => this.categoriasServices.create( payload )
+        ofType(fromActions.CREAR_REGISTRO_EFFECT),
+        map(( action: fromActions.CrearRegistroEffectAction ) => {
+            const payload = action.payload;
+            this.spinnerServices.show(payload.spinner);
+            return payload;
+        }),
+        switchMap( ( payload ) => this.categoriasServices.create( payload.categoria )
             .pipe(
                 map( response => {
-                        return new fromCategoriasActions.CrearRegistroExitosoAction(response);
+                    this.spinnerServices.hide(payload.spinner);
+                    return new fromActions.CrearRegistroExitosoAction(response);
                 }),
-                catchError( error => of(new fromCategoriasActions.CrearRegistroFallidoAction(error)))
+                catchError( error => {
+                    this.spinnerServices.hide(payload.spinner);
+                    return of(new fromActions.CrearRegistroFallidoAction(error));
+                })
             )
         )
     );
 
-    @Effect()
+    /*creacion exitosa*/
+    /*@Effect()
+    creacionexitoso$: Observable<Action> = this.actions$.pipe(
+        ofType(fromActions.CREAR_REGISTRO_EXITOSO),
+        map(( action: fromActions.CrearRegistroExitosoAction ) => action.payload ),
+        switchMap( ( payload ) => {
+            this.alertServices.toastSuccess('', payload.message);
+            return of(new fromActions.CargarDatosEffectAction());
+        })
+    );
+    */
+
+    /*creacion fallida*/
+    /*@Effect({ dispatch: false })
+    creacionfallido$ = this.actions$.pipe(
+        ofType(fromActions.CREAR_REGISTRO_FALLIDO),
+        map(( action: fromActions.CrearRegistroFallidoAction ) => action.payload ),
+        tap((payload) => {
+            this.alertServices.toastError('', payload.error.message);
+        })
+    );
+    */
+   /*@Effect()
     actualizar$: Observable<Action> = this.actions$.pipe(
-        ofType(fromCategoriasActions.ACTUALIZAR_REGISTRO_EFFECT),
-        map(( action: fromCategoriasActions.ActualizarRegistroEffectAction ) => action.payload ),
+        ofType(fromActions.ACTUALIZAR_REGISTRO_EFFECT),
+        map(( action: fromActions.ActualizarRegistroEffectAction ) => action.payload ),
         switchMap( ( payload ) => this.categoriasServices.update( payload, payload.id )
             .pipe(
                 map( response => {
-                        return new fromCategoriasActions.ActualizarRegistroExitosoAction(response);
+                        return new fromActions.ActualizarRegistroExitosoAction(response);
                 }),
-                catchError( error => of(new fromCategoriasActions.ActualizarRegistroFallidoAction(error)))
+                catchError( error => of(new fromActions.ActualizarRegistroFallidoAction(error)))
             )
         )
-    );
+    );*/
+
 }

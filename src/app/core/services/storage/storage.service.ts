@@ -16,21 +16,11 @@ export class StorageService {
     this.API_URL = environment.API_URL;
   }
 
-  public crearUsuario(usuario: any ): Observable<any> {
-    const url = `${this.API_URL}/registro`;
-    return this.http.post(url, usuario);
-  }
-
-  public autenticar(login: any): Observable<any> {
-    const url = `${this.API_URL}/login`;
-    return this.http.post(url, login);
-  }
-
-  public setSession(identity: string, email: string, recuerdame: boolean): void {
+  public setSession(identity: string, email: string): void {
     localStorage.setItem('identity', identity);
 
     localStorage.removeItem('email');
-    if ( recuerdame ) {
+    if ( email !== '' ) {
       localStorage.setItem('email', email);
     }
 

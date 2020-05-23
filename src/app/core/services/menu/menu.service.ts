@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -22,18 +22,55 @@ export class MenuService {
     this.API_URL = environment.API_URL;
 
     this.menu = [
-      { titulo: 'Profesiones', url: '/profesiones' },
-      { titulo: 'Como Funciona', url: '/como-funciona' },
-      { titulo: 'Registrate', url: '/registro' },
-      { titulo: 'Ingresar', url: '/login' }
+      {
+        titulo: 'Profesiones',
+        url: '/profesiones'
+      },
+      {
+        titulo: 'Como Funciona',
+        url: '/como-funciona'
+      },
+      {
+        titulo: 'Registrate',
+        url: '/registro'
+      },
+      {
+        titulo: 'Ingresar',
+        url: '/login'
+      }
     ];
 
     this.menuAuth = [
-      { titulo: 'Dashboard', url: '/dashboard' },
-      { titulo: 'Categorias', url: '/categorias' },
-      { titulo: 'Especialidades', url: '/especialidades' },
-      { titulo: 'Perfil', url: '/perfil' },
-      { titulo: 'Salir', url: '/login' }
+      {
+        titulo: 'Dashboard',
+        url: '/dash'
+      },
+      {
+        titulo: 'Maestros',
+        url: '#',
+        submenu: [
+          {
+            titulo: 'Categorias',
+            url: '/categorias'
+          },
+          {
+            titulo: 'Especialidad',
+            url: '/especialidades'
+          },
+          {
+            titulo: 'Genero',
+            url: '/genero'
+          }
+        ]
+      },
+      {
+        titulo: 'Perfil',
+        url: '/perfil'
+      },
+      {
+        titulo: 'Salir',
+        url: '/login'
+      }
     ];
   }
 

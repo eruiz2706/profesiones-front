@@ -1,0 +1,35 @@
+.btn-custom {
+	background-color: $color-button-custom;
+	color: $color-white;
+}
+
+.btn {
+	border-radius: 7px !important;
+	box-shadow: 0 3px 8px 0 rgba(41,49,89,.15), inset 0 0 0 1px hsla(0,0%,100%,.1);
+}
+.btn:not(:disabled):not(.disabled) {
+	cursor: pointer;
+}
+
+.btn-primary {
+	background-color: $color-blue-secunday;
+	border-color: $color-blue-secunday;
+}
+
+.btn-primary:hover {
+	color: $color-white;
+	background-color: $color-blue;
+	border-color: $color-blue;
+}
+
+.btn-option {
+    float: right
+}
+
+@media (max-width: 480px) {
+    .btn-option {
+		float: left;
+		width: 100%;
+		margin-top: 5px;
+	}
+}

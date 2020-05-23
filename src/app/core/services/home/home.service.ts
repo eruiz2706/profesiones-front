@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, pipe } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-
-  private API_URL: string;
 
   private imagesSliderStore: any;
   private imagesSlider$ = new BehaviorSubject<any>([]);
@@ -31,7 +28,6 @@ export class HomeService {
   constructor(
     private http: HttpClient
   ) {
-    this.API_URL = environment.API_URL;
     this.imagesSliderStore = [];
     this.dataComoFuncionaStore = [];
     this.dataContadorStore = [];
@@ -92,7 +88,7 @@ export class HomeService {
   }
 
   public loadCategorias$(): void {
-    const url = `${this.API_URL}/categorias?estado=true&limit=100`;
+    const url = `/categorias?estado=true&limit=100`;
     this.http.get(url).subscribe( res => {
       this.dataCategoriasStore = res['data'];
       this.dataCategorias$.next( this.dataCategoriasStore );

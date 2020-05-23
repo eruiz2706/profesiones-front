@@ -1,0 +1,33 @@
+<header>
+  <nav class="navbar navbar-expand-md fixed-top bg-white header-navbar shadow">
+    <a class="navbar-brand header-nav-logo" href="#" [routerLink]="'/home'"><span>IWANA</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars" style="color:black; font-size:1.5rem;"></i>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarCollapse">
+      <ul class="navbar-nav ml-auto header-navbar-ul">
+        <ng-container *ngFor="let itemMenu of navegacion">
+          <ng-container *ngIf="itemMenu.url !== '#' ;else elseSubmenu">
+          <li class="nav-item">
+            <a href="#" class="nav-link" routerLink="" (click)="navPagina(itemMenu.url)">
+              {{ itemMenu.titulo }}
+            </a>
+          </li>
+          </ng-container>
+          <ng-template #elseSubmenu> 
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ itemMenu.titulo }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngFor="let itemSub of itemMenu.submenu">
+                <a class="dropdown-item" href="#" routerLink="" (click)="navPagina(subitem.url)" *ngFor="let subitem of itemMenu.submenu">
+                  {{ subitem.titulo }}
+                </a> 
+              </div>
+            </li>
+          </ng-template>
+        </ng-container>
+      </ul>
+    </div>
+  </nav>
+</header>

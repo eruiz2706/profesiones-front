@@ -1,7 +1,17 @@
-<app-content-wrapper>
-	<app-page-header
-		[titulo]="'Iniciar Sesion'"
-	>
+<app-page-header
+	[titulo]="'Iniciar Sesion'"
+>
+
+	<ngx-spinner 
+		bdColor = "rgba(254,251,251,0.6)" 
+		size = "large" 
+		color = "#EC4243" 
+		type = "ball-scale-multiple" 
+		zIndex = 99
+		name="spinner"
+		[fullScreen] = "false">
+			<p style="color: black" > Cargando... </p>
+	</ngx-spinner>
 
 	<div class="text-center social-btn mt-3 mb-3">
 		<a href="#" class="btn btn-primary mr-5"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
@@ -16,7 +26,7 @@
 			<div class="col-sm-8">
 				<div class="form-group has-search">
 					<span class="fa fa-user form-control-feedback"></span>
-					<input type="email" class="form-control" name ='email' formControlName='email' [(ngModel)]='email'>
+					<input type="email" class="form-control" name ='email' formControlName='email'>
 				</div>
 			</div>
 		</div>
@@ -32,13 +42,12 @@
 	
 		<div class="checkbox mb-3">
 		<label>
-			<input type="checkbox" name ='recuerdame' [(ngModel)]="recuerdame"> Recuerdame
+			<input type="checkbox" name ='recuerdame' formControlName='recuerdame'> Recuerdame
 		</label>
 		</div>
 		<button class="btn btn-lg btn-danger btn-block" type="submit">Ingresar</button>
 	</form >
-	</app-page-header>
-</app-content-wrapper>
+</app-page-header>
 
 
 

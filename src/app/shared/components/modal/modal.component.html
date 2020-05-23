@@ -1,0 +1,33 @@
+<div class="modal fade" [id]="nombre">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <ngx-spinner 
+            bdColor = "rgba(246,239,239,.6)" 
+            size = "large" 
+            color = "#EC4243" 
+            type = "ball-scale-multiple" 
+            zIndex = 99
+            [name]="spinnerNombre"
+            [fullScreen] = "false">
+                <p style="color: black" > Cargando... </p>
+            </ngx-spinner> 
+
+            <div class="modal-header">
+                <h5 class="modal-title">{{titulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="font-size: 2rem;">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body mb-0">
+                <ng-content></ng-content>
+            </div>
+
+            <div class="modal-footer" *ngIf="footer">
+                <button type="button" class="btn btn-danger btn-sm float-right" (click)="onActionButton()">
+                    {{textButton}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

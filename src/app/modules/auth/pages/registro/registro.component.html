@@ -1,67 +1,77 @@
-<app-content-wrapper>
-	<app-page-header
-		[titulo]="'Registrate'"
-	>
+<app-page-header
+	[titulo]="'Registrate'"
+>
 
-	<div class="text-center social-btn mb-3">
-		<a href="#" class="btn btn-primary mr-5"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
-		<a href="#" class="btn btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
+<ngx-spinner 
+	bdColor = "rgba(254,251,251,0.6)" 
+	size = "large" 
+	color = "#EC4243" 
+	type = "ball-scale-multiple" 
+	zIndex = 99
+	name="spinner"
+	[fullScreen] = "false">
+		<p style="color: black" > Cargando... </p>
+</ngx-spinner>
+
+<div class="text-center social-btn mb-3">
+	<a href="#" class="btn btn-primary mr-5"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
+	<a href="#" class="btn btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
+</div>
+
+<h4 class="text-center">or</h4>
+<hr> 
+<div class="bd-callout bd-callout-info">  
+	<p>Los campos marcados con <i class="icon-asterisco"></i> son requeridos</p>
+</div>
+<form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrar()" class="mt-5">
+	<div class="form-group row">
+		<label class="icon-asterisco col-sm-3">Nombre</label>
+		<div class="col-sm-8">
+			<input type="nombre" class="form-control" name ='nombre' formControlName='nombre'>
+			<small class="form-text text-danger" *ngIf="forma.get('nombre').invalid  && marcadorSubmit">{{forma.get('nombre').errors | formError}}</small>
+		</div>
 	</div>
 
-	<h4 class="text-center">or</h4>
-	<hr> 
-	<div class="bd-callout bd-callout-info">  
-		<p>Los campos marcados con <i class="icon-asterisco"></i> son requeridos</p>
+	<div class="form-group row">
+		<label class="icon-asterisco col-sm-3">Email</label>
+		<div class="col-sm-8">
+			<input type="email" class="form-control" name ='email' formControlName='email'>
+			<small class="form-text text-danger" *ngIf="forma.get('email').invalid  && marcadorSubmit">{{forma.get('email').errors | formError}}</small>
+		</div>
 	</div>
-	<form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrar()" class="mt-5">
-		<div class="form-group row">
-			<label class="icon-asterisco col-sm-3">Nombre</label>
-			<div class="col-sm-8">
-				<input type="nombre" class="form-control" name ='nombre' formControlName='nombre'>
-				<small class="form-text text-danger" *ngIf="forma.get('nombre').invalid  && marcadorSubmit">{{forma.get('nombre').errors | formError}}</small>
-			</div>
-		</div>
 
-		<div class="form-group row">
-			<label class="icon-asterisco col-sm-3">Email</label>
-			<div class="col-sm-8">
-				<input type="email" class="form-control" name ='email' formControlName='email'>
-				<small class="form-text text-danger" *ngIf="forma.get('email').invalid  && marcadorSubmit">{{forma.get('email').errors | formError}}</small>
-			</div>
+	<div class="form-group row">
+		<label class="icon-asterisco col-sm-3">Contraseña</label>
+		<div class="col-sm-8">
+			<input type="password" class="form-control" name ='password' formControlName='password'>
+			<small class="form-text text-danger" *ngIf="forma.get('password').invalid  && marcadorSubmit">{{forma.get('password').errors | formError}}</small>
 		</div>
+	</div>
 
-		<div class="form-group row">
-			<label class="icon-asterisco col-sm-3">Contraseña</label>
-			<div class="col-sm-8">
-				<input type="password" class="form-control" name ='password' formControlName='password'>
-				<small class="form-text text-danger" *ngIf="forma.get('password').invalid  && marcadorSubmit">{{forma.get('password').errors | formError}}</small>
-			</div>
+	<div class="form-group row">
+		<label class="icon-asterisco col-sm-3">Confirmar contraseña</label>
+		<div class="col-sm-8">
+			<input type="password" class="form-control" name ='password2' formControlName='password2'>
+			<small class="form-text text-danger" *ngIf="forma.get('password2').invalid   && marcadorSubmit">{{forma.get('password2').errors | formError}}</small>
 		</div>
+	</div>
 
-		<div class="form-group row">
-			<label class="icon-asterisco col-sm-3">Confirmar contraseña</label>
-			<div class="col-sm-8">
-				<input type="password" class="form-control" name ='password2' formControlName='password2'>
-				<small class="form-text text-danger" *ngIf="forma.get('password2').invalid   && marcadorSubmit">{{forma.get('password2').errors | formError}}</small>
-			</div>
-		</div>
+	<div class="form-group form-check">
+		<label class="form-check-label">
+			<input type="checkbox" class="form-check-input" name ='tipo' formControlName='tipo'>Registrarme como profesional
+		</label>
+	</div>
 
-		<div class="form-group form-check">
-			<label class="form-check-label">
-				<input type="checkbox" class="form-check-input" name ='tipo' formControlName='tipo'>Registrarme como profesional
-			</label>
-		</div>
+	<div class="form-group form-check">
+		<label class="form-check-label icon-asterisco">
+			<input type="checkbox" class="form-check-input " name ='condiciones' formControlName='condiciones'>Acepto los terminos y condiciones
+		</label>
+		<small class="form-text text-danger" *ngIf="forma.get('condiciones').invalid  && marcadorSubmit">{{forma.get('condiciones').errors | formError}}</small>
+	</div>
 
-		<div class="form-group form-check">
-			<label class="form-check-label icon-asterisco">
-				<input type="checkbox" class="form-check-input " name ='condiciones' formControlName='condiciones'>Acepto los terminos y condiciones
-			</label>
-			<small class="form-text text-danger" *ngIf="forma.get('condiciones').invalid  && marcadorSubmit">{{forma.get('condiciones').errors | formError}}</small>
-		</div>
+	<button class="btn btn-lg btn-danger btn-block" type="submit">Registrarme</button>
+</form>
+</app-page-header>
 
-		<button class="btn btn-lg btn-danger btn-block" type="submit">Registrarme</button>
-	</form>
-	</app-page-header>
-</app-content-wrapper>
 
 

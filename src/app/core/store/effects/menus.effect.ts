@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError, delay } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { MenuService } from '../../services';
-import * as fromMenuActions from '../actions/menu.accions';
+import { MenuService } from 'src/app/core/services';
+import * as fromActions from '../accions/menu.accions';
 
 @Injectable()
 export class MenusEffects {
@@ -17,26 +17,26 @@ export class MenusEffects {
 
     @Effect()
     load$: Observable<Action> = this.actions$.pipe(
-        ofType(fromMenuActions.CARGAR_DATOS_EFFECT),
+        ofType(fromActions.CARGAR_DATOS),
         switchMap( () => this.menuServices.getAll()
             .pipe(
                 map( response => {
-                        return new fromMenuActions.CargarDatosExitososAction(response);
+                        return new fromActions.CargarDatosExitososAction(response);
                 }),
-                catchError( error => of(new fromMenuActions.CargarDatosFallidosAction(error)))
+                catchError( error => of(new fromActions.CargarDatosFallidosAction(error)))
             )
         )
     );
 
     @Effect()
     loadAuth$: Observable<Action> = this.actions$.pipe(
-        ofType(fromMenuActions.CARGAR_DATOS_AUTH_EFFECT),
+        ofType(fromActions.CARGAR_DATOS_AUTH),
         switchMap( () => this.menuServices.getAllAuth()
             .pipe(
                 map( response => {
-                        return new fromMenuActions.CargarDatosExitososAction(response);
+                        return new fromActions.CargarDatosExitososAction(response);
                 }),
-                catchError( error => of(new fromMenuActions.CargarDatosFallidosAction(error)))
+                catchError( error => of(new fromActions.CargarDatosFallidosAction(error)))
             )
         )
     );

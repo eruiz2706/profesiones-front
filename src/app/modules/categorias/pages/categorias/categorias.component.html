@@ -1,68 +1,45 @@
-<app-content-wrapper>
-    <app-breadcrumb [titulo]="'Lista de categorias'"></app-breadcrumb>
 
-    <div class="modal fade" id="modalCrear">
-        <div class="modal-dialog" role="document">
-            <app-content-crear></app-content-crear>
-        </div>
-    </div>
+<app-content-crear></app-content-crear>
+<app-content-edit></app-content-edit>
 
-    <div class="modal fade" id="modalEdit">
-        <div class="modal-dialog" role="document">
-            <app-content-edit></app-content-edit>
-        </div>
-    </div>
+<app-content-wrapper
+    [titulo]="'Lista de categorias'"
+    [loader]= "loading"
+    [contentImg]="contentImg"
+    (buttonClickEmpty)="openCrear()"
+>
+    <ng-container content-wrapper-options>
+        <button class="btn btn-sm btn-primary btn-option"   (click)="openCrear()" >
+            Crear categoria
+        </button>
+    </ng-container>
 
     <div class="container-fluid pt-3">
         <div class="row">
-            
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <app-loader [visible]="loading"></app-loader>
-                        <app-content-state-img [titulo]="'Lo Sentimos no fue posible traer resultados para la accion solicitada'" [subtitulo]="'Si persiste el problema, puedes reportar el error'" [imagen]="'assets/images/cancel.svg'" *ngIf="!loading && !loaded">
-                            <button type="button" class="btn btn-danger ">Reportar Error</button>
-                        </app-content-state-img>
-
-                        <app-content-state-img [titulo]="'Parece que no tienes ninguna categoria'" [subtitulo]="'Afortunadamente, es muy facil crear una'" [imagen]="'assets/images/lista_vacia.svg'" *ngIf="!loading && loaded && count==0">
-                        <button type="button" class="btn btn-danger " (click)="openCrear()">Nueva categoria</button>
-                        </app-content-state-img>
-                    </div>
-
-                    <ng-container *ngIf="!loading && loaded && count>0">
-                        <div class="col-md-5">
-                            <div class="form-group has-search">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Busca por nombre o id" name='searchField' [(ngModel)]="searchField">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <a  class="float-right nav-link text-default" [routerLink]='' (click)="openCrear()">
-                                <span class="badge">Nueva categoria <i class="fa fa-plus-square-o"></i></span>
-                            </a>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col-md-4" *ngFor="let item of data | filterData:{search:searchField,keys:['nombre','_id']} | paginate: { itemsPerPage: 6, currentPage: pageActual }">
-                            <app-card-item 
-                                [item]="item"
-                                (opcionEdit)="redirectEdit($event)"
-                            ></app-card-item>
-                        </div>
-
-                        <div class="w-100"></div>
-                        <div class="col-md-12 pt-3">
-                            <pagination-controls 
-                                (pageChange)="pageActual = $event" 
-                                previousLabel="Anterior"
-                                nextLabel="Siguiente"
-                                autoHide="true"
-                                responsive="true"
-                                maxSize="5"
-                                
-                            ></pagination-controls>
-                        </div>
-                    </ng-container>
+            <div class="col-md-5">
+                <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control" placeholder="Buscar por id o nombre" name='searchField' [(ngModel)]="searchField" (keyup)="pageActual=1">
                 </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-4" *ngFor="let item of data | filterData:{search:searchField,keys:['nombre','_id']} | paginate: { itemsPerPage: 6, currentPage: pageActual }">
+                <app-card-item 
+                    [item]="item"
+                    (opcionEdit)="redirectEdit($event)"
+                ></app-card-item>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="col-md-12 pt-3">
+                <pagination-controls 
+                    (pageChange)="setPageActual($event)" 
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    autoHide="true"
+                    responsive="true"
+                    maxSize="5"
+                ></pagination-controls>
             </div>
         </div>
     </div>

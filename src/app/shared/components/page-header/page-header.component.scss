@@ -3,7 +3,9 @@
 .page-header { 
     position: relative; 
     background-size: cover; 
-    background-color: $color-blue;
+    background-color: $color-blue-hard;
+    width: 100%;
+    padding-top: 5rem;
 }
 .page-caption { 
     height: 300px;

@@ -1,32 +1,33 @@
-import * as fromMenuActions from '../actions/menu.accions';
-import { MenuState } from '../states';
+import * as fromActions from '../accions/menu.accions';
+import { MenuState } from '../states/menu.state';
 
 const initialState: MenuState  = {
     data: [],
     loaded: false,
     loading: false,
-    error: '' 
+    error: {}
 };
 
-export function menuReducer( state = initialState, action: fromMenuActions.actions) {
+export function menuReducer( state = initialState, action: fromActions.actions) {
 
     switch ( action.type ) {
 
-        case fromMenuActions.CARGAR_DATOS_EFFECT: {
+        case fromActions.CARGAR_DATOS: {
+            return {
+                ...state,
+                loading: true,
+                error: {}
+            };
+        }
+
+        case fromActions.CARGAR_DATOS_AUTH: {
             return {
                 ...state,
                 loading: true
             };
         }
 
-        case fromMenuActions.CARGAR_DATOS_AUTH_EFFECT: {
-            return {
-                ...state,
-                loading: true
-            };
-        }
-
-        case fromMenuActions.CARGAR_DATOS_EXITOSOS: {
+        case fromActions.CARGAR_DATOS_EXITOSOS: {
             return {
                 ...state,
                 loading: false,
@@ -35,7 +36,7 @@ export function menuReducer( state = initialState, action: fromMenuActions.actio
             };
         }
 
-        case fromMenuActions.CARGAR_DATOS_FALLIDOS: {
+        case fromActions.CARGAR_DATOS_FALLIDOS: {
             return {
                 ...state,
                 loading: false,

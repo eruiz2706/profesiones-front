@@ -34,6 +34,7 @@ a:hover  {
 	font-size: 1rem;
 }
 
+
 .overlay {
     position: absolute;
     width: 100%;
@@ -46,19 +47,6 @@ a:hover  {
 .card {
 	border-radius: 10px;
     background-color: $color-white;
-}
-
-.btn-custom {
-	background-color: $color-button-custom;
-	color: $color-white;
-}
-
-.content-wrapper {
-	//min-height: 300px;
-	max-width: 1300px;
-	min-height: 500px;
-	padding-top: 5.3rem;
-	margin: 0 auto;
 }
 
 .divider {
@@ -87,3 +75,5 @@ a:hover  {
     pointer-events: none;
     color: #aaa;
 }
+
+
