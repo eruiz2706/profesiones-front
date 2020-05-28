@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import * as fromStore from 'src/app/app-config-store';
+import * as fromStore from '../../store/categorias.reducer';
+import * as fromAccions from '../../store/categorias.accions';
 import { AlertsService, ModalService, CategoriasService } from 'src/app/core/services';
 
 @Component({
@@ -20,22 +21,13 @@ export class ContentEditComponent implements OnInit,OnDestroy {
   public spinner: boolean = false;
 
   constructor(
-    private store: Store<fromStore.AppState>,
+    private store: Store<{ categorias: fromStore.State}>,
     private alertServices: AlertsService,
     private modalServices: ModalService,
     private categoriasServices: CategoriasService
   ) {}
 
   ngOnInit(): void {
-    this.subscriptionsStore();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
-  subscriptionsStore(): void {
     this.store.select('categorias')
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe( (categorias) => {
@@ -72,7 +64,7 @@ export class ContentEditComponent implements OnInit,OnDestroy {
     this.categoriasServices.update(payload, id)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe( (response) => {
-      this.cargarDatos();
+      this.store.dispatch( fromAccions.reloadDatos());
       this.alertServices.toastSuccess('', response.message);
       this.modalServices.close('modalEdit');
       this.spinner = false;
@@ -84,14 +76,8 @@ export class ContentEditComponent implements OnInit,OnDestroy {
     });
   }
 
-  cargarDatos(): void {
-    this.store.dispatch( new fromStore.accions.categorias.CargarDatosAction());
-    this.categoriasServices.getAll()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe( (response) => {
-      this.store.dispatch( new fromStore.accions.categorias.CargarDatosExitososAction(response));
-    }, (error) => {
-      this.store.dispatch( new fromStore.accions.categorias.CargarDatosFallidosAction(error));
-    });
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

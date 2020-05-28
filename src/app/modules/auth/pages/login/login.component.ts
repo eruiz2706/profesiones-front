@@ -1,8 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StorageService, AlertsService } from 'src/app/core/services';
+import { StorageService, AlertsService, UsuariosService } from 'src/app/core/services';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as fromStore from 'src/app/app-config-store';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import * as fromMenuStore from 'src/app/core/store/menu.reducers';
+import * as fromMenuAccions from 'src/app/core/store/menu.accions';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +16,16 @@ import * as fromStore from 'src/app/app-config-store';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
+  private unsubscribe$ = new Subject<void>();
   forma: FormGroup;
 
   constructor(
-    private store: Store<fromStore.AppState>,
+    private store: Store<{menu: fromMenuStore.State}>,
+    private usuarioServices: UsuariosService,
+    private spinnerServices: NgxSpinnerService,
     private storageServices: StorageService,
-    private alertServices: AlertsService
+    private alertServices: AlertsService,
+    private router: Router
   ) {
     const email = storageServices.getEmail();
     let recuerdame = false;
@@ -32,7 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     /*se cierra la  sesion*/
-    this.store.dispatch( new fromStore.accions.auth.AuthLogoutAction() );
+    this.storageServices.removerSession();
+    this.store.dispatch( fromMenuAccions.reloadDatos() );
   }
 
   ingresar(): void {
@@ -43,18 +53,27 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     const payload = {
-      login: {
         email: this.forma.value.email,
         password: this.forma.value.password
-      },
-      spinner: 'spinner'
     };
 
-    /*autenticar un usuario*/
-    this.store.dispatch( new fromStore.accions.auth.AuthLoginAction(payload));
+    this.spinnerServices.show('spilogin');
+    this.usuarioServices.login(payload)
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (response) => {
+      this.spinnerServices.hide('spilogin');
+      this.storageServices.setSession(response.data.token, response.data.email, response.data.rol);
+      this.router.navigate( ['/dash'] );
+      this.store.dispatch( fromMenuAccions.reloadDatos() );
+    }, (error) => {
+      this.spinnerServices.hide('spilogin');
+      this.alertServices.toastError('', error.error.message);
+    });
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

@@ -26,8 +26,12 @@ import {
 
 import {
   LoginGuard,
+  AdminRolGuard,
+  ClienteRolGuard,
+  ProfesionalRolGuard
 } from './guards/guards.index';
 import { SharedModule } from '../shared/shared.module';
+import { PaginaAlertComponent } from './components/pagina-alert/pagina-alert.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     FooterComponent,
     ScrolltopComponent,
-    PaginaErrorComponent
+    PaginaErrorComponent,
+    PaginaAlertComponent
   ],
   imports: [
     CommonModule,
@@ -46,17 +51,22 @@ import { SharedModule } from '../shared/shared.module';
   providers: [
     { provide : HTTP_INTERCEPTORS, useClass: BaseUrlInterceptorService, multi   : true },
     { provide : HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi   : true },
+
     FuncionesService,
     StorageService,
     MenuService,
     HomeService,
     CategoriasService,
     EspecialidadesService,
-    LoginGuard,
     UsuariosService,
     AlertsService,
     ModalService,
-    ErrorService
+    ErrorService,
+
+    LoginGuard,
+    AdminRolGuard,
+    ClienteRolGuard,
+    ProfesionalRolGuard
   ]
 })
 export class CoreModule { }

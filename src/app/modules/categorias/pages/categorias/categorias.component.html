@@ -5,15 +5,15 @@
 <app-content-wrapper
     [titulo]="'Lista de categorias'"
     [loader]= "loading"
-    [contentImg]="contentImg"
-    (buttonClickEmpty)="openCrear()"
 >
-    <ng-container content-wrapper-options>
-        <button class="btn btn-sm btn-primary btn-option"   (click)="openCrear()" >
-            Crear categoria
-        </button>
-    </ng-container>
 
+<ng-container content-wrapper-options>
+    <button class="btn btn-sm btn-primary btn-option" (click)="openCrear()" *ngIf="data.length > 0">
+        Crear categoria
+    </button>
+</ng-container>
+
+<ng-container *ngIf="data.length > 0;else templateVacio">
     <div class="container-fluid pt-3">
         <div class="row">
             <div class="col-md-5">
@@ -43,5 +43,17 @@
             </div>
         </div>
     </div>
+
+</ng-container>
+
+<ng-template #templateVacio>
+    <app-content-state-img 
+        [titulo]="'Parece que no tienes ninguna categoria creada'" 
+        [subtitulo]="'Afortunadamente, es muy facil crear uno.'" 
+        [imagen]="'assets/images/lista_vacia.svg'"
+    > 
+        <button type="button" class="btn btn-primary ppb-3" (click)="openCrear()">Crear Categoria</button>
+    </app-content-state-img>
+</ng-template>
 
 </app-content-wrapper>

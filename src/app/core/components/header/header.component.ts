@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
-import * as fromStore from 'src/app/app-config-store';
-import { StorageService, MenuService } from 'src/app/core/services';
+import { MenuService } from 'src/app/core/services';
 import { Router } from '@angular/router';
+import * as fromStore from '../../store/menu.reducers';
+import * as fromAccions from '../../store/menu.accions';
 declare const $;
 
 @Component({
@@ -16,12 +17,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
   public loaded: boolean;
-  public navegacion: any;
+  public navegacion: any = [];
 
   constructor(
-    private store: Store<fromStore.AppState>,
+    private store: Store<{menu: fromStore.State}>,
     private menuServices: MenuService,
-    private storageService: StorageService,
     private router: Router
   ) {
     this.loaded = false;
@@ -33,32 +33,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptionsStore();
-
-    if ( !this.loaded ) {
-      if (this.storageService.isAuthenticated()) {
-        this.cargaAuthMenu();
-      } else {
-        this.cargaMenu();
-      }
-    }
-  }
-
-  subscriptionsStore(): void {
     this.store.select('menu')
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe( (menu) => {
       this.navegacion = menu.data;
       this.loaded = menu.loaded;
+      if ( !this.loaded ) {
+        this.cargarDatos();
+      }
     });
   }
 
-  cargaMenu(): void {
-    this.store.dispatch(new fromStore.accions.menu.CargarDatosAction());
-  }
-
-  cargaAuthMenu(): void {
-    this.store.dispatch(new fromStore.accions.menu.CargarDatosAuthAction());
+  cargarDatos(): void {
+    this.menuServices.getAll()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (response) => {
+      this.store.dispatch( fromAccions.cargarDatos(response));
+    });
   }
 
   ngOnDestroy(): void {

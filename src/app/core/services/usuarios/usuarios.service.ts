@@ -21,4 +21,14 @@ export class UsuariosService {
     const url = `/login`;
     return this.http.post(url, login);
   }
+
+  public getPerfil(): Observable<any> {
+    const url = `/usuarios/perfil`;
+    return this.http.get(url);
+  }
+
+  public updatePerfil(data: any): Observable<any> {
+    const url = `/usuarios/perfil`;
+    return this.http.put(url, data);
+  }
 }

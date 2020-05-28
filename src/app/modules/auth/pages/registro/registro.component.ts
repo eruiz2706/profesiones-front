@@ -1,8 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as fromStore from 'src/app/app-config-store';
 import { Store } from '@ngrx/store';
-import { AlertsService } from 'src/app/core/services';
+import { AlertsService, UsuariosService, StorageService } from 'src/app/core/services';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import * as fromMenuStore from 'src/app/core/store/menu.reducers';
+import * as fromMenuAccions from 'src/app/core/store/menu.accions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -11,12 +16,18 @@ import { AlertsService } from 'src/app/core/services';
 })
 export class RegistroComponent implements OnInit, OnDestroy {
 
+  private unsubscribe$ = new Subject<void>();
   public forma: FormGroup;
   public marcadorSubmit: boolean;
 
   constructor(
-    private store: Store<fromStore.AppState>,
-    private alertServices: AlertsService
+    private store: Store<{menu: fromMenuStore.State}>,
+    private alertServices: AlertsService,
+    private spinnerServices: NgxSpinnerService,
+    private usuarioServices: UsuariosService,
+    private alertService: AlertsService,
+    private storageServices: StorageService,
+    private router: Router
   ) {
 
     this.marcadorSubmit = false;
@@ -67,20 +78,31 @@ export class RegistroComponent implements OnInit, OnDestroy {
     }
 
     const payload = {
-      user: {
         nombre: this.forma.value.nombre,
         email: this.forma.value.email,
         password: this.forma.value.password,
         profesional: this.forma.value.profesional,
         terminos: this.forma.value.condiciones
-      },
-      spinner: 'spinner'
     };
 
-    this.store.dispatch( new fromStore.accions.auth.AuthRegistroAction(payload));
+    this.spinnerServices.show('spRegistro');
+    this.usuarioServices.create(payload)
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (response) => {
+      this.spinnerServices.hide('spRegistro');
+      this.storageServices.setSession(response.data.token, response.data.email, response.data.rol);
+      this.router.navigate( ['/dash'] );
+      this.store.dispatch( fromMenuAccions.reloadDatos() );
+      this.alertService.toastSuccess('', 'Su registro se realizo correctamente');
+    }, (error) => {
+      this.alertService.toastError('', error.error.message);
+      this.spinnerServices.hide('spRegistro');
+    });
   }
 
   ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

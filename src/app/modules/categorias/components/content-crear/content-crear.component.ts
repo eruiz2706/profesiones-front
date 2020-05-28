@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import * as fromStore from 'src/app/app-config-store';
+import * as fromStore from '../../store/categorias.reducer';
+import * as fromAccions from '../../store/categorias.accions';
 import { AlertsService, CategoriasService } from 'src/app/core/services';
 
 @Component({
@@ -19,7 +20,7 @@ export class ContentCrearComponent implements OnInit, OnDestroy {
   public spinner: boolean = false;
 
   constructor(
-    private store: Store<fromStore.AppState>,
+    private store: Store<{ categorias: fromStore.State }>,
     private alertServices: AlertsService,
     private categoriasServices: CategoriasService
   ) { }
@@ -49,7 +50,7 @@ export class ContentCrearComponent implements OnInit, OnDestroy {
     this.categoriasServices.create(payload)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe((response) => {
-      this.cargarDatos();
+      this.store.dispatch( fromAccions.reloadDatos());
       this.spinner = false;
       this.alertServices.toastSuccess('', response.message);
       this.marcadorSubmit = false;
@@ -58,17 +59,6 @@ export class ContentCrearComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.spinner = false;
       this.alertServices.toastError('', error.error.message);
-    });
-  }
-
-  cargarDatos(): void {
-    this.store.dispatch( new fromStore.accions.categorias.CargarDatosAction());
-    this.categoriasServices.getAll()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe( (response) => {
-      this.store.dispatch( new fromStore.accions.categorias.CargarDatosExitososAction(response));
-    }, (error) => {
-      this.store.dispatch( new fromStore.accions.categorias.CargarDatosFallidosAction(error));
     });
   }
 

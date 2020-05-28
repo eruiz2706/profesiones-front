@@ -1,70 +1,22 @@
-
 <app-content-wrapper
-    titulo = 'Profesiones mas buscadas'
+    [titulo] = "'Profesiones mas buscadas'"
 >
     
-    <div class="container-fluid" style="background-color: white;">
-        <div class="row pt-4">
-            <div class="col-md-4 ">
-                <app-filter-collapse>
-                    <form>
-                        <div class="form align-items-center ">
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Categoria</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Categoria 1</option>
-                                    <option>Categoria 2</option>
-                                    <option>Categoria 3</option>
-                                    <option>Categoria 4</option>
-                                    <option>Categoria 5</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Sub-Categoria</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>SubCategoria 1</option>
-                                    <option>SubCategoria 2</option>
-                                    <option>SubCategoria 3</option>
-                                    <option>SubCategoria 4</option>
-                                    <option>SubCategoria 5</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="formControlRange">Valor</label>
-                                <input type="range" class="form-control-range" id="formControlRange">
-                            </div>
-                            </div>
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Experiencia(años)</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>2 a 5</option>
-                                    <option>6 - 7</option>
-                                </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-danger btn-block">Buscar</button>
-                        </div>
-                        </form >
-                </app-filter-collapse>
-            </div>
-            
-            <div class="col-md-8">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4" *ngFor="let item of listaProfesionales">
-                            <app-profesional-item-card></app-profesional-item-card>
-                        </div>
+<div class="container-fluid">
+    <div class="row pt-4">
+        <div class="col-md-4 ">
+            <app-filtros-busqueda></app-filtros-busqueda>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let item of listaProfesionales">
+                        <app-profesional-item-card></app-profesional-item-card>
                     </div>
                 </div>
             </div>
-        </div> 
-    </div>
+        </div>
+    </div> 
+</div>
 </app-content-wrapper>

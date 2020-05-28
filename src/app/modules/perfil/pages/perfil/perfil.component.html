@@ -1,0 +1,33 @@
+<app-content-wrapper
+    [titulo]="'Mi perfil como cliente'"
+    [loader]= "loading"
+>
+
+<ng-container content-wrapper-options  *ngIf="!user.profesional">
+    <button class="btn btn-sm btn-primary btn-option">
+        Activar perfil como profesional
+    </button>
+</ng-container>
+
+<div class="container-fluid pt-3 mb-5">
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-data1-tab" data-toggle="pill" href="#v-pills-data1" role="tab" aria-controls="v-pills-data1" aria-selected="true">Informacion personal</a>
+                <a class="nav-link" id="v-pills-data2-tab" data-toggle="pill" href="#v-pills-data2" role="tab" aria-controls="v-pills-data2" aria-selected="false">Cambio de clave</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active mx-auto" id="v-pills-data1" role="tabpanel" aria-labelledby="v-pills-data1-tab">
+                    <app-info-personal></app-info-personal>
+                </div>
+                <div class="tab-pane fade" id="v-pills-data2" role="tabpanel" aria-labelledby="v-pills-data2-tab">
+                    <app-cambio-clave></app-cambio-clave>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</app-content-wrapper>

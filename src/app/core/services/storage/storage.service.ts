@@ -16,8 +16,9 @@ export class StorageService {
     this.API_URL = environment.API_URL;
   }
 
-  public setSession(identity: string, email: string): void {
+  public setSession(identity: string, email: string, rol: string): void {
     localStorage.setItem('identity', identity);
+    localStorage.setItem('rol', rol);
 
     localStorage.removeItem('email');
     if ( email !== '' ) {
@@ -46,6 +47,11 @@ export class StorageService {
   public getEmail(): string {
     const email  = localStorage.getItem('email') || '';
     return email;
+  }
+
+  public getRol(): string {
+    const rol  = localStorage.getItem('rol') || '';
+    return rol;
   }
 
   isAuthenticated(): boolean {

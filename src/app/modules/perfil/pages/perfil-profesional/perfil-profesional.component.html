@@ -1,0 +1,27 @@
+<app-content-wrapper
+    [titulo]="'Mi perfil como profesional'"
+    [loader]= "loading"
+>
+  
+<div class="container-fluid pt-3 mb-5">
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-data1-tab" data-toggle="pill" href="#v-pills-data1" role="tab" aria-controls="v-pills-data1" aria-selected="true">Informacion basica</a>
+                <a class="nav-link" id="v-pills-data2-tab" data-toggle="pill" href="#v-pills-data2" role="tab" aria-controls="v-pills-data2" aria-selected="false">Historial laboral</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active mx-auto" id="v-pills-data1" role="tabpanel" aria-labelledby="v-pills-data1-tab">
+                    <app-info-profesional></app-info-profesional>
+                </div>
+                <div class="tab-pane fade" id="v-pills-data2" role="tabpanel" aria-labelledby="v-pills-data2-tab">
+                    <app-historial-lab></app-historial-lab>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</app-content-wrapper>

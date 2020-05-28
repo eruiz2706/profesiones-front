@@ -8,6 +8,7 @@ import { ProfesionesListaComponent } from './pages/profesiones-lista/profesiones
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { HabilidadesCardComponent } from './components/habilidades-card/habilidades-card.component';
 import { ProfesionalItemCardComponent } from './components/profesional-item-card/profesional-item-card.component';
+import { FiltrosBusquedaComponent } from './components/filtros-busqueda/filtros-busqueda.component';
 
 
 @NgModule({
@@ -16,12 +17,13 @@ import { ProfesionalItemCardComponent } from './components/profesional-item-card
     ProfesionesListaComponent,
     ProfileCardComponent,
     HabilidadesCardComponent,
-    ProfesionalItemCardComponent
+    ProfesionalItemCardComponent,
+    FiltrosBusquedaComponent
   ],
   imports: [
     CommonModule,
     ProfesionesRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class ProfesionesModule { }

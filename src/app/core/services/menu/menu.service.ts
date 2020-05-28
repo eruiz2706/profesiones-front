@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,78 +9,73 @@ export class MenuService {
 
   private menu: any[];
   private menu$ = new BehaviorSubject<any>([]);
-
-  private menuAuth: any[];
-  private menuAuth$ = new BehaviorSubject<any>([]);
-
-  private API_URL: string;
-
   constructor(
-    private http: HttpClient
+    private storageServices: StorageService
   ) {
-    this.API_URL = environment.API_URL;
-
-    this.menu = [
-      {
-        titulo: 'Profesiones',
-        url: '/profesiones'
-      },
-      {
-        titulo: 'Como Funciona',
-        url: '/como-funciona'
-      },
-      {
-        titulo: 'Registrate',
-        url: '/registro'
-      },
-      {
-        titulo: 'Ingresar',
-        url: '/login'
-      }
-    ];
-
-    this.menuAuth = [
-      {
-        titulo: 'Dashboard',
-        url: '/dash'
-      },
-      {
-        titulo: 'Maestros',
-        url: '#',
-        submenu: [
-          {
-            titulo: 'Categorias',
-            url: '/categorias'
-          },
-          {
-            titulo: 'Especialidad',
-            url: '/especialidades'
-          },
-          {
-            titulo: 'Genero',
-            url: '/genero'
-          }
-        ]
-      },
-      {
-        titulo: 'Perfil',
-        url: '/perfil'
-      },
-      {
-        titulo: 'Salir',
-        url: '/login'
-      }
-    ];
+    this.menu = [];
   }
 
   getAll(): Observable<any> {
-    this.menu$.next(this.menu);
+    this.menu = [];
+    if (this.storageServices.isAuthenticated()) {
+      if (this.storageServices.getRol() === 'ADMIN_ROL') {
+        this.menu = [
+          { titulo: 'Dashboard', url: '/dash', icono: '' },
+          {
+            titulo: 'Maestros', url: '#', icono: '' ,
+            submenu: [
+              { titulo: 'Categorias', url: '/categorias', icono: '' },
+              { titulo: 'Especialidad', url: '/especialidades', icono: '' },
+              { titulo: 'Genero', url: '/genero', icono: '' }
+            ]
+          },
+          { titulo: '', url: '#', icono: 'fa fa-gears',
+            submenu: [
+              { titulo: 'Perfil como cliente', url: '/perfil', icono: '' },
+              { titulo: 'Cerrar sesiòn', url: '/login', icono: '' }
+            ]
+          }
+        ];
+      } else if (this.storageServices.getRol() === 'PROFESIONAL_ROL') {
+        this.menu = [
+          { titulo: 'Dashboard', url: '/dash', icono: '' },
+          { titulo: 'Proyectos', url: '/proyectos', icono: '' },
+          { titulo: 'Favoritos', url: '/favoritos', icono: '' },
+          { titulo: '', url: '/notificaciones', icono: 'fa fa-bell-o'},
+          { titulo: '', url: '#', icono: 'fa fa-gears',
+            submenu: [
+              { titulo: 'Perfil como cliente', url: '/perfil', icono: '' },
+              { titulo: 'Perfil como profesional', url: '/perfil-prof', icono: '' },
+              { titulo: 'Cerrar sesiòn', url: '/login', icono: '' }
+            ]
+          }
+        ];
+      } else if (this.storageServices.getRol() === 'CLIENTE_ROL') {
+        this.menu = [
+          { titulo: 'Dashboard', url: '/dash', icono: '' },
+          { titulo: 'Proyectos', url: '/proyectos', icono: '' },
+          { titulo: 'Favoritos', url: '/favoritos', icono: '' },
+          { titulo: '', url: '/notificaciones', icono: 'fa fa-bell-o'},
+          { titulo: '', url: '#', icono: 'fa fa-gears',
+            submenu: [
+              { titulo: 'Perfil como cliente', url: '/perfil', icono: '' },
+              { titulo: 'Cerrar sesiòn', url: '/login', icono: '' }
+            ]
+          }
+        ];
+      }
+    } else {
+      this.menu = [
+        { titulo: 'Profesiones', url: '/profesiones', icono: '' },
+        { titulo: 'Como Funciona', url: '/como-funciona', icono: '' },
+        { titulo: 'Registrate', url: '/registro', icono: '' },
+        { titulo: 'Ingresar', url: '/login', icono: '' }
+      ];
+    }
+    this.menu$.next({
+      data: this.menu
+    });
     return this.menu$.asObservable();
-  }
-
-  getAllAuth(): Observable<any> {
-    this.menuAuth$.next(this.menuAuth);
-    return this.menuAuth$.asObservable();
   }
 
 }

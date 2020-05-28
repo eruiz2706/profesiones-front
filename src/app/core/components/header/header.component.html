@@ -11,6 +11,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link" routerLink="" (click)="navPagina(itemMenu.url)">
               {{ itemMenu.titulo }}
+              <i class="{{itemMenu.icono}}" style="font-size: 1.3rem;" *ngIf="itemMenu.icono !==''"></i>
             </a>
           </li>
           </ng-container>
@@ -18,10 +19,12 @@
             <li class="nav-item dropdown">
               <a href="#" class="nav-link" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ itemMenu.titulo }}
+                <i class="{{itemMenu.icono}}" *ngIf="itemMenu.icono !==''"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngFor="let itemSub of itemMenu.submenu">
                 <a class="dropdown-item" href="#" routerLink="" (click)="navPagina(subitem.url)" *ngFor="let subitem of itemMenu.submenu">
                   {{ subitem.titulo }}
+                  <i class="{{subitem.icono}}" *ngIf="subitem.icono !==''"></i>
                 </a> 
               </div>
             </li>

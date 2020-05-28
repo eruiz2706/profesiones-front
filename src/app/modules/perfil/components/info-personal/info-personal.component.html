@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-8">
+        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="actualizar()" >
+        <div class="card">
+            <ngx-spinner 
+                bdColor = "rgba(254,251,251,0.6)" 
+                size = "large" 
+                color = "#EC4243" 
+                type = "ball-scale-multiple" 
+                zIndex = 99
+                name="spUpdate"
+                [fullScreen] = "false">
+                    <p style="color: black" > Cargando... </p>
+            </ngx-spinner>
+
+            <div class="card-body">
+                <div>
+                    <strong>Informacion personal</strong>
+                    <p><small>Los campos marcados en <span class="icon-asterisco"></span> son requeridos</small></p>
+                    <hr>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3">Email</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="email" formControlName='email_hidden'>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 icon-asterisco">Documento</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"  name="documento" formControlName='documento'>
+                        <small class="form-text text-danger" *ngIf="forma.get('documento').invalid  && marcadorSubmit">{{forma.get('documento').errors | formError}}</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 icon-asterisco">Nombre</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"  name="nombre" formControlName='nombre'>
+                        <small class="form-text text-danger" *ngIf="forma.get('nombre').invalid  && marcadorSubmit">{{forma.get('nombre').errors | formError}}</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3">Telefono</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control"  name="telefono" formControlName='telefono'>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3">Genero</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-danger btn-sm float-right">
+                    Actualizar
+                </button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-2 ">
+            <div class="card-body">
+                <img src="assets/images/camara.svg" class="rounded" alt="..." style="background-size: cover;width: 100%;height: 9rem;">
+            </div>
+        </div>
+    </div>
+</div>
