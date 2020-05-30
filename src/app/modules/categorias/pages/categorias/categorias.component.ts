@@ -46,7 +46,6 @@ export class CategoriasComponent implements OnInit, OnDestroy {
     this.categoriasService.getAll()
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe( (response) => {
-      console.log(response);
       this.store.dispatch( fromAccions.cargarDatos(response));
       this.loading = false;
     }, (error) => {

@@ -1,3 +1,17 @@
+<app-modal
+    [titulo] ="'Cargar Imagen'"
+    [nombre] ="'modalImagen'"
+    [spinner]="spinnerModal"
+    [footer] ="'true'"
+    [textButton]="'Actualizar'"
+    (actionButton)="cargarImagen()"
+>
+
+<img [src]="previewLogoUser" class="img-fluid" alt="Previsualizar Imagen" style="height: 250px; width: 100%; display: block;">
+<input type="file" class="form-control-file border" id="file_avatar" (change)="handleImagen($event.target.files)">
+
+</app-modal>
+
 <div class="row">
     <div class="col-md-8">
         <form ngNativeValidate [formGroup]="forma" (ngSubmit)="actualizar()" >
@@ -63,7 +77,12 @@
     <div class="col-md-4">
         <div class="card mb-2 ">
             <div class="card-body">
-                <img src="assets/images/camara.svg" class="rounded" alt="..." style="background-size: cover;width: 100%;height: 9rem;">
+                <div class="card-title">
+                    <a [routerLink]="" (click)="openModalImagen()">
+                        <i class="fa fa-edit float-right"></i>    
+                    </a>
+                </div>
+                <img src="file:///Applications/XAMPP/xamppfiles/htdocs/iwana/filename.jpg" class="rounded" alt="..." style="background-size: cover;width: 100%;height: 9rem;">
             </div>
         </div>
     </div>

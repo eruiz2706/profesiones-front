@@ -20,7 +20,8 @@ const _reducers = createReducer(initialState,
     on(actions.cargarDatos, (state, payload ) => ({
         ...state,
         loaded: true,
-        data: payload.data, count: payload.count
+        data: payload.data,
+        count: payload.count
     })),
     on(actions.cargarItem, (state, payload) => ({
         ...state,

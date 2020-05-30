@@ -1,0 +1,26 @@
+
+<app-content-wrapper
+titulo = 'Confirmacion de pago'
+>
+
+<div class="alert alert-primary" *ngIf="transactionState === '4'">
+    <p>Transaccion Aprobada</p>
+</div>
+
+<div class="alert alert-danger" *ngIf="transactionState !== '4'">
+    Transaccion rechazada
+</div>
+
+<ul>
+    <li>merchantId: {{merchantId}}</li>
+    <li>referenceCode: {{referenceCode}}</li>
+    <li>TX_VALUE: {{TX_VALUE}}</li>
+    <li>description: {{description}}</li>
+    <li>transactionId: {{transactionId}}</li>
+    <li>buyerEmail: {{buyerEmail}}</li>
+    <li>transactionState: {{transactionState}}</li>
+    <li>reference_pol: {{reference_pol}}</li>
+</ul>
+
+    <button class="btn btn-primary" routerLink='/dash'>Ir al dash</button>
+</app-content-wrapper>

@@ -3,5 +3,34 @@
     titulo = 'Dashboard'
 >
     
-    
+<form method="post" [action]="webcheckout.action">
+    <input name="merchantId"    type="hidden"  value="{{webcheckout.merchantId}}" >
+    <input name="accountId"     type="hidden"  value="{{webcheckout.accountId}}" >
+    <input name="description"   type="hidden"  value="{{webcheckout.description}}" >
+    <input name="referenceCode" type="hidden"  value="{{webcheckout.referenceCode}}" >
+    <input name="amount"        type="hidden"  value="{{webcheckout.amount}}" >
+    <input name="tax"           type="hidden"  value="{{webcheckout.tax}}" >
+    <input name="taxReturnBase" type="hidden"  value="{{webcheckout.taxReturnBase}}" >
+    <input name="currency"      type="hidden"  value="{{webcheckout.currency}}" >
+    <input name="signature"     type="hidden"  value="{{webcheckout.signature}}" >
+    <input name="test"          type="hidden"  value="{{webcheckout.test}}" >
+    <input name="buyerEmail"    type="hidden"  value="{{webcheckout.buyerEmail}}" >
+    <input name="responseUrl"    type="hidden" value="{{webcheckout.responseUrl}}" >
+    <input name="confirmationUrl"    type="hidden" value="{{webcheckout.responseUrl}}" >
+    <button name="submit" type="submit"  class="btn btn-block btn-primary btn-sm">
+       <span><i class="fa fa-credit-card"></i> pagar </span>
+    </button>
+ </form>    
+
+ <hr>
+ <div style="text-align:center">
+    <h1>
+      Welcome to my webRTC demo app!
+    </h1>
+    <button (click)="stopStream()">Stop Streaming</button>
+    <video #hardwareVideo autoplay></video>
+  </div>
+
+
+
 </app-content-wrapper>

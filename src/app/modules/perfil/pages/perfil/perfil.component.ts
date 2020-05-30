@@ -36,7 +36,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
     });
   }
 
-
   cargarDatos(): void {
     this.loading = true;
     this.usuariosServices.getPerfil()
@@ -54,5 +53,4 @@ export class PerfilComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }

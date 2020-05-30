@@ -16,9 +16,10 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     req = req.clone({
      setHeaders: {
-       'Content-Type': 'application/json',
-       //'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',
-       'Authorization': this.storageService.getIdentity()
+       /*'Content-Type': 'application/json',
+       //'Content-Type': 'multipart/form-data',
+       //'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',*/
+       Authorization: this.storageService.getIdentity()
      }
     });
 

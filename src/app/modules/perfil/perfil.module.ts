@@ -11,10 +11,15 @@ import { InfoProfesionalComponent } from './components/info-profesional/info-pro
 import { HistorialLabComponent } from './components/historial-lab/historial-lab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [PerfilComponent, InfoPersonalComponent, CambioClaveComponent, PerfilProfesionalComponent, InfoProfesionalComponent, HistorialLabComponent ],
+  declarations: [
+    PerfilComponent,
+    InfoPersonalComponent,
+    CambioClaveComponent,
+    PerfilProfesionalComponent,
+    InfoProfesionalComponent,
+    HistorialLabComponent
+  ],
   imports: [
     CommonModule,
     PerfilRoutingModule,

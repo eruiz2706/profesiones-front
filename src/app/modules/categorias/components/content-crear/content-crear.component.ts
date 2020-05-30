@@ -31,6 +31,7 @@ export class ContentCrearComponent implements OnInit, OnDestroy {
       icono: new FormControl( null ),
       estado: new FormControl( true )
     });
+
   }
 
   crear(): void {

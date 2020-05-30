@@ -31,4 +31,9 @@ export class UsuariosService {
     const url = `/usuarios/perfil`;
     return this.http.put(url, data);
   }
+
+  public uploadImg(data: any): Observable<any> {
+    const url = `/upload`;
+    return this.http.put(url, data);
+  }
 }
