@@ -14,13 +14,22 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
 
+    let headers = {};
+
+    if (req.url.indexOf('uploadImg') === -1) {
+      headers = {
+        'Content-Type': 'application/json',
+        Authorization: this.storageService.getIdentity()
+      };
+    } else {
+      headers = {
+        Authorization: this.storageService.getIdentity()
+      };
+    }
+
+    console.log(headers);
     req = req.clone({
-     setHeaders: {
-       /*'Content-Type': 'application/json',
-       //'Content-Type': 'multipart/form-data',
-       //'Set-Cookie': 'HttpOnly;Secure;SameSite=Strict',*/
-       Authorization: this.storageService.getIdentity()
-     }
+     setHeaders: headers
     });
 
     return next.handle( req );

@@ -1,0 +1,40 @@
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Navigation
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Button
+|--------------------------------------------------------------------------
+*/
+.como-funciona {
+  padding-top: 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.como-funciona h2 {
+  padding-bottom: 2.5rem;
+}
+
+.como-funciona-circle-container {
+  border-radius: 100%;
+  background: #EC4243;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  color: #ffffff;
+  padding-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.como-funciona-icon {
+  font-size: 50px;
+}
+/*# sourceMappingURL=como-funciona.component.css.map */

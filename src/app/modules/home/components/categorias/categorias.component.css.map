@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACYA;;;;EAIE;AAIF;;;;EAIE;AAOF;;;;EAIE;ADhCF,AAAA,gBAAgB,CAAA;EACZ,WAAW,EAAE,IAAI;EACpB,cAAc,EAAE,IAAI;EACpB,UAAU,EAAE,MAAM;EAClB,gBAAgB,ECCJ,OAAO;CDGnB;;AARD,AAKC,gBALe,CAKf,EAAE,CAAC;EACF,cAAc,EAAE,MAAM;CACtB;;AAGF,AAAA,4BAA4B,CAAC;EAC5B,aAAa,EAAE,IAAI;EACnB,UAAU,ECdK,OAAO;EDetB,KAAK,EAAE,MAAM;EACb,MAAM,EAAE,MAAM;EACd,MAAM,EAAE,MAAM;EACd,WAAW,EAAE,KAAK;EAClB,aAAa,EAAE,KAAK;CACpB;;AAED,AAAA,gBAAgB,CAAC;EAChB,SAAS,EAAE,MAAM;EACjB,KAAK,ECjBO,OAAO;CDkBnB",
+    "sources": [
+        "categorias.component.scss",
+        "../../../../../sas/abstracts/_variables.scss"
+    ],
+    "names": [],
+    "file": "categorias.component.css"
+}

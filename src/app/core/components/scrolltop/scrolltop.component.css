@@ -1,0 +1,44 @@
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Navigation
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Button
+|--------------------------------------------------------------------------
+*/
+.scrollToTop {
+  background-color: #EC4243;
+  bottom: 3.7rem;
+  color: #ffffff;
+  display: none;
+  font-size: 1.8rem;
+  line-height: 3.1rem;
+  position: fixed;
+  right: 3.3rem;
+  text-align: center;
+  text-decoration: none;
+  width: 3.4rem;
+  z-index: 999;
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+  height: 3.4rem;
+}
+
+.scrollToTop:hover,
+.scrollToTop:focus {
+  color: #ffffff;
+}
+
+.scrollToTop,
+.mu-testimonial-slide .slick-dots li.slick-active,
+#mu-callto-action {
+  background-color: #EC4243;
+}
+/*# sourceMappingURL=scrolltop.component.css.map */

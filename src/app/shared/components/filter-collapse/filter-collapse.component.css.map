@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,WAAW,CAAC;EACR,OAAO,EAAC,IACZ;CAAC;;AAED,AAAA,WAAW,CAAC;EACR,OAAO,EAAC,KACZ;CAAC;;AAED,MAAM,EAAE,SAAS,EAAE,KAAK;EACpB,AAAA,WAAW,CAAC;IACR,OAAO,EAAC,KACZ;GAAC;EAED,AAAA,WAAW,CAAC;IACR,OAAO,EAAC,IACZ;GAAC",
+    "sources": [
+        "filter-collapse.component.scss"
+    ],
+    "names": [],
+    "file": "filter-collapse.component.css"
+}

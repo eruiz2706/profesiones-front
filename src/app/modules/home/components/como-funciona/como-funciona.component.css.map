@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACYA;;;;EAIE;AAIF;;;;EAIE;AAOF;;;;EAIE;ADjCF,AAAA,cAAc,CAAA;EACV,WAAW,EAAE,IAAI;EACpB,aAAa,EAAE,IAAI;EACnB,UAAU,EAAE,MAAM;CAIlB;;AAPD,AAIC,cAJa,CAIb,EAAE,CAAC;EACF,cAAc,EAAE,MAAM;CACtB;;AAEF,AAAA,+BAA+B,CAAC;EAC/B,aAAa,EAAE,IAAI;EACnB,UAAU,ECXK,OAAO;EDYtB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;EACb,MAAM,EAAE,MAAM;EACd,KAAK,ECRO,OAAO;EDSnB,WAAW,EAAE,MAAM;EACnB,aAAa,EAAE,IAAI;CACnB;;AAED,AAAA,mBAAmB,CAAC;EACnB,SAAS,EAAE,IAAI;CACf",
+    "sources": [
+        "como-funciona.component.scss",
+        "../../../../../sas/abstracts/_variables.scss"
+    ],
+    "names": [],
+    "file": "como-funciona.component.css"
+}

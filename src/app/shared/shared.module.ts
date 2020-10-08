@@ -13,6 +13,7 @@ import { FilterDataPipe } from './pipes/filter-data.pipe';
 import { FormErrorPipe } from './pipes/form-error.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalComponent } from './components/modal/modal.component';
+import { ImgEmptyPipe } from './pipes/img-empty.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ModalComponent } from './components/modal/modal.component';
     ContentStateImgComponent,
     FilterDataPipe,
     FormErrorPipe,
-    ModalComponent
+    ModalComponent,
+    ImgEmptyPipe
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { ModalComponent } from './components/modal/modal.component';
     NgxSpinnerModule,
     FilterDataPipe,
     FormErrorPipe,
-    ModalComponent
+    ModalComponent,
+    ImgEmptyPipe
   ]
 })
 export class SharedModule { }

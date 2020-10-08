@@ -1,0 +1,66 @@
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Navigation
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Button
+|--------------------------------------------------------------------------
+*/
+.contador-home {
+  background-color: #0B3854;
+  padding: .5rem 1.5rem;
+}
+
+.contador-home-single span {
+  position: relative;
+  border-right: 1px solid #ffffff;
+  color: #ffffff;
+  font-size: 2.5rem;
+  padding: 1rem 1.2rem;
+  margin-bottom: .4rem;
+  margin-top: .4rem;
+  right: 1.2rem;
+  float: left;
+  width: 5rem;
+}
+
+.contador-home-content {
+  text-align: left;
+  padding-top: 1px;
+}
+
+.contador-home-value {
+  font-size: 2rem;
+  font-family: 'Helvetica', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.contador-home-name {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .contador-home-single {
+    margin-left: 30%;
+  }
+}
+
+@media (max-width: 480px) {
+  .contador-home-single {
+    margin-left: 10%;
+  }
+}
+/*# sourceMappingURL=contador.component.css.map */

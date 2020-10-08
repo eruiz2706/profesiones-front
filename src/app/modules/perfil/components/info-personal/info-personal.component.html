@@ -7,8 +7,8 @@
     (actionButton)="cargarImagen()"
 >
 
-<img [src]="previewLogoUser" class="img-fluid" alt="Previsualizar Imagen" style="height: 250px; width: 100%; display: block;">
-<input type="file" class="form-control-file border" id="file_avatar" (change)="handleImagen($event.target.files)">
+<img *ngIf="previewLogoUser !==''" [src]="previewLogoUser" class="img-fluid" alt="Previsualizar Imagen" style="height: 250px; width: 100%; display: block;">
+<input type="file" class="form-control-file border" name="fileAvatar" [(ngModel)]="fileAvatar" (change)="handleImagen($event.target.files)">
 
 </app-modal>
 
@@ -82,7 +82,7 @@
                         <i class="fa fa-edit float-right"></i>    
                     </a>
                 </div>
-                <img src="assets/images/camara.svg" class="rounded" alt="..." style="background-size: cover;width: 100%;height: 9rem;">
+                <img [src]="user.imagen | imgEmpty:{tipo:'camara'}" class="rounded" alt="..." style="background-size: cover;width: 100%;height: 9rem;">
             </div>
         </div>
     </div>

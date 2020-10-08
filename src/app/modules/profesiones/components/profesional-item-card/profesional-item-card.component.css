@@ -1,0 +1,41 @@
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Navigation
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Button
+|--------------------------------------------------------------------------
+*/
+.profesional-item {
+  position: relative;
+}
+
+.favorito-profesional-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-top: .5rem;
+  margin-right: .5rem;
+  right: 0;
+}
+
+.favorito-profesional-item:hover {
+  cursor: pointer;
+  color: #EC4243;
+}
+
+.calificacion-profesional-item .fa {
+  margin-left: .3rem;
+  color: #EC4243;
+}
+/*# sourceMappingURL=profesional-item-card.component.css.map */

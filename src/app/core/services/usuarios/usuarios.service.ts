@@ -33,7 +33,7 @@ export class UsuariosService {
   }
 
   public uploadImg(data: any): Observable<any> {
-    const url = `/upload`;
+    const url = `/usuarios/uploadImg`;
     return this.http.put(url, data);
   }
 }

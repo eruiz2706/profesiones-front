@@ -1,0 +1,49 @@
+/*
+|--------------------------------------------------------------------------
+| Header
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Navigation
+|--------------------------------------------------------------------------
+*/
+/*
+|--------------------------------------------------------------------------
+| Button
+|--------------------------------------------------------------------------
+*/
+.home-caracteristicas {
+  background-color: #ffffff;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.home-caracteristicas h2 {
+  text-align: center;
+  padding-bottom: 2.5rem;
+}
+
+.home-caracteristicas-img {
+  background-size: cover;
+  width: 100%;
+  height: 25rem;
+}
+
+.home-caracteristicas-right ul li {
+  list-style: none;
+}
+
+.home-caracteristicas-right ul li h3 {
+  border-bottom: 3px solid #EC4243;
+  color: #0B3854;
+  font-size: 1.4rem;
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.home-caracteristicas-right ul li p {
+  font-size: .8rem;
+}
+/*# sourceMappingURL=caracteristicas.component.css.map */

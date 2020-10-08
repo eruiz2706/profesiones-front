@@ -21,7 +21,8 @@ export class InfoPersonalComponent implements OnInit, OnDestroy  {
   public marcadorSubmit: boolean = false;
   public spinnerModal: boolean = false;
   public formData = new FormData();
-  public previewLogoUser: any = 'assets/images/camara.svg';
+  public previewLogoUser: any = '';
+  public fileAvatar: any;
 
   constructor(
     private store: Store<{perfil: fromStore.State}>,
@@ -79,12 +80,14 @@ export class InfoPersonalComponent implements OnInit, OnDestroy  {
   }
 
   openModalImagen(): void {
+    this.previewLogoUser = '';
+    this.fileAvatar = null;
     this.formData = new FormData();
     this.modalServices.open('modalImagen');
   }
 
   handleImagen(files: FileList) {
-    this.formData.append('sampleFile', files[0], files[0].name);
+    this.formData.append('imagen', files[0], files[0].name);
     const reader = new FileReader();
     reader.onload = (e) => {
       this.previewLogoUser = e.target.result;
@@ -97,10 +100,12 @@ export class InfoPersonalComponent implements OnInit, OnDestroy  {
     this.usuarioServices.uploadImg(this.formData)
     .subscribe( (response) => {
       this.spinnerModal = false;
+      this.modalServices.close('modalImagen');
       this.alertServices.toastSuccess('', response.message);
+      this.store.dispatch( fromAccions.reloadDatos() );
     }, (error) => {
+      this.alertServices.toastError('', error.error.message);
       this.spinnerModal = false;
-      console.log(error);
     });
   }
 

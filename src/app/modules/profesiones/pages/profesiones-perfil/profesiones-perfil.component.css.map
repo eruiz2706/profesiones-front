@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACYA;;;;EAIE;AAIF;;;;EAIE;AAOF;;;;EAIE;ADjCA,AAAA,UAAU,CAAC,SAAS,AAAA,OAAO,EAAE,UAAU,CAAC,KAAK,GAAC,SAAS,CAAC;EACtD,KAAK,ECAK,OAAO;EDCjB,gBAAgB,EAAE,WAAW;EAC7B,aAAa,EAAE,GAAG,CAAC,KAAK,CCJZ,OAAO;EDKnB,aAAa,EAAE,GAAG;CACnB",
+    "sources": [
+        "profesiones-perfil.component.scss",
+        "../../../../../sas/abstracts/_variables.scss"
+    ],
+    "names": [],
+    "file": "profesiones-perfil.component.css"
+}
